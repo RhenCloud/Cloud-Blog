@@ -1,88 +1,88 @@
 <script lang="ts" setup>
-import Fuse from 'fuse.js'
-import type { BlogPost } from '~/types/blog'
+import Fuse from "fuse.js";
+import type { BlogPost } from "~/types/blog";
 
-const { data } = await useAsyncData('all-blog-post', () => queryCollection('content').all())
+const { data } = await useAsyncData("all-blog-post", () => queryCollection("content").all());
 
-const elementPerPage = ref(5)
-const pageNumber = ref(1)
-const searchTest = ref('')
+const elementPerPage = ref(5);
+const pageNumber = ref(1);
+const searchTest = ref("");
 
 const formattedData = computed(() => {
   return (
     data.value?.map((articles) => {
-      const meta = articles.meta as unknown as BlogPost
+      const meta = articles.meta as unknown as BlogPost;
       return {
         path: articles.path,
-        title: articles.title || 'no-title available',
-        description: articles.description || 'no-description available',
-        image: meta.image || '/not-found.jpg',
-        alt: meta.alt || 'no alter data available',
-        ogImage: meta.ogImage || '/not-found.jpg',
-        date: meta.date || 'not-date-available',
+        title: articles.title || "no-title available",
+        description: articles.description || "no-description available",
+        image: meta.image || "/not-found.jpg",
+        alt: meta.alt || "no alter data available",
+        ogImage: meta.ogImage || "/not-found.jpg",
+        date: meta.date || "not-date-available",
         tags: meta.tags || [],
         published: meta.published || false,
-      }
+      };
     }) || []
-  )
-})
+  );
+});
 
 const fuse = computed(() => {
   return new Fuse(formattedData.value, {
-    keys: ['title', 'description'],
+    keys: ["title", "description"],
     threshold: 0.4,
     includeScore: false,
-  })
-})
+  });
+});
 
 const searchData = computed(() => {
   if (!searchTest.value.trim()) {
-    return formattedData.value
+    return formattedData.value;
   }
 
-  const results = fuse.value.search(searchTest.value)
-  return results.map((result) => result.item)
-})
+  const results = fuse.value.search(searchTest.value);
+  return results.map((result) => result.item);
+});
 
 const paginatedData = computed(() => {
-  const startInd = (pageNumber.value - 1) * elementPerPage.value
-  const endInd = pageNumber.value * elementPerPage.value
+  const startInd = (pageNumber.value - 1) * elementPerPage.value;
+  const endInd = pageNumber.value * elementPerPage.value;
 
-  return searchData.value.slice(startInd, endInd)
-})
+  return searchData.value.slice(startInd, endInd);
+});
 
 function onPreviousPageClick() {
-  if (pageNumber.value > 1) pageNumber.value -= 1
+  if (pageNumber.value > 1) pageNumber.value -= 1;
 }
 
 const totalPage = computed(() => {
-  const ttlContent = searchData.value.length || 0
-  return Math.ceil(ttlContent / elementPerPage.value)
-})
+  const ttlContent = searchData.value.length || 0;
+  return Math.ceil(ttlContent / elementPerPage.value);
+});
 
 function onNextPageClick() {
-  if (pageNumber.value < totalPage.value) pageNumber.value += 1
+  if (pageNumber.value < totalPage.value) pageNumber.value += 1;
 }
 
 useHead({
-  title: 'Archive',
+  title: "Archive",
   meta: [
     {
-      name: 'description',
-      content: 'Here you will find all the blog posts I have written & published on this site.',
+      name: "description",
+      content: "Here you will find all the blog posts I have written & published on this site.",
     },
   ],
-})
+});
 
 // Generate OG Image
-const siteData = useSiteConfig()
+const siteData = useSiteConfig();
 defineOgImage({
   props: {
-    title: 'Archive',
-    description: 'Here you will find all the blog posts I have written & published on this site.',
+    title: "Archive",
+    description: "Here you will find all the blog posts I have written & published on this site.",
     siteName: siteData.url,
   },
-})
+});
 </script>
 
 <template>
@@ -94,8 +94,7 @@ defineOgImage({
         v-model="searchTest"
         placeholder="Search"
         type="text"
-        class="block w-full bg-[#F1F2F4] dark:bg-slate-900 dark:placeholder-zinc-500 text-zinc-300 rounded-md border-gray-300 dark:border-gray-800 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-      />
+        class="block w-full bg-[#F1F2F4] dark:bg-slate-900 dark:placeholder-zinc-500 text-zinc-300 rounded-md border-gray-300 dark:border-gray-800 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
     </div>
 
     <div v-auto-animate class="space-y-5 my-5 px-4">
@@ -109,8 +108,7 @@ defineOgImage({
           :alt="post.alt"
           :og-image="post.ogImage"
           :tags="post.tags"
-          :published="post.published"
-        />
+          :published="post.published" />
       </template>
 
       <ArchiveCard v-if="paginatedData.length <= 0" title="No Post Found" image="/not-found.jpg" />
@@ -121,16 +119,14 @@ defineOgImage({
         <Icon
           name="mdi:code-less-than"
           size="30"
-          :class="{ 'text-sky-700 dark:text-sky-400': pageNumber > 1 }"
-        />
+          :class="{ 'text-sky-700 dark:text-sky-400': pageNumber > 1 }" />
       </button>
       <p>{{ pageNumber }} / {{ totalPage }}</p>
       <button :disabled="pageNumber >= totalPage" @click="onNextPageClick">
         <Icon
           name="mdi:code-greater-than"
           size="30"
-          :class="{ 'text-sky-700 dark:text-sky-400': pageNumber < totalPage }"
-        />
+          :class="{ 'text-sky-700 dark:text-sky-400': pageNumber < totalPage }" />
       </button>
     </div>
   </main>

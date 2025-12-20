@@ -1,128 +1,88 @@
 <script setup lang="ts">
-import type { BlogPost } from '@/types/blog'
-import { navbarData, seoData } from '~/data'
+import type { BlogPost } from "@/types/blog";
+import { seoData } from "~/data";
 
-const { path } = useRoute()
+const { path } = useRoute();
 
 const { data: articles, error } = await useAsyncData(`blog-post-${path}`, () =>
-  queryCollection('content').path(path).first(),
-)
+  queryCollection("content").path(path).first(),
+);
 
-if (error.value) navigateTo('/404')
+if (error.value) navigateTo("/404");
 
 const data = computed<BlogPost>(() => {
-  const meta = articles?.value?.meta as unknown as BlogPost
+  const meta = articles?.value?.meta as unknown as BlogPost;
   return {
-    title: articles.value?.title || 'no-title available',
-    description: articles.value?.description || 'no-description available',
-    image: meta?.image || '/not-found.jpg',
-    alt: meta?.alt || 'no alter data available',
-    ogImage: (articles?.value?.ogImage as unknown as string) || '/not-found.jpg',
-    date: meta?.date || 'not-date-available',
+    title: articles.value?.title || "no-title available",
+    description: articles.value?.description || "no-description available",
+    image: meta?.image || "/not-found.jpg",
+    alt: meta?.alt || "no alter data available",
+    ogImage: (articles?.value?.ogImage as unknown as string) || "/not-found.jpg",
+    date: meta?.date || "not-date-available",
     tags: meta?.tags || [],
     published: meta?.published || false,
-  }
-})
+  };
+});
 
 useHead({
-  title: data.value.title || '',
+  title: data.value.title || "",
   meta: [
-    { name: 'description', content: data.value.description },
+    { name: "description", content: data.value.description },
     {
-      name: 'description',
+      name: "description",
       content: data.value.description,
-    },
-    // Test on: https://developers.facebook.com/tools/debug/ or https://socialsharepreview.com/
-    { property: 'og:site_name', content: navbarData.homeTitle },
-    { property: 'og:type', content: 'website' },
-    {
-      property: 'og:url',
-      content: `${seoData.mySite}/${path}`,
-    },
-    {
-      property: 'og:title',
-      content: data.value.title,
-    },
-    {
-      property: 'og:description',
-      content: data.value.description,
-    },
-    {
-      property: 'og:image',
-      content: data.value.ogImage || data.value.image,
-    },
-    // Test on: https://cards-dev.twitter.com/validator or https://socialsharepreview.com/
-    { name: 'twitter:site', content: '@qdnvubp' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    {
-      name: 'twitter:url',
-      content: `${seoData.mySite}/${path}`,
-    },
-    {
-      name: 'twitter:title',
-      content: data.value.title,
-    },
-    {
-      name: 'twitter:description',
-      content: data.value.description,
-    },
-    {
-      name: 'twitter:image',
-      content: data.value.ogImage || data.value.image,
     },
   ],
   link: [
     {
-      rel: 'canonical',
+      rel: "canonical",
       href: `${seoData.mySite}/${path}`,
     },
   ],
-})
+});
 
 // console.log(articles.value)
-
-// Generate OG Image
-defineOgImageComponent('Test', {
-  headline: 'Riyads Blog 👋',
-  title: articles.value?.seo.title || '',
-  description: articles.value?.seo.description || '',
-  link: data.value.ogImage,
-})
 </script>
 
 <template>
-  <div class="px-6 container max-w-5xl mx-auto sm:grid grid-cols-12 gap-x-12">
-    <div class="col-span-12 lg:col-span-9">
+  <div class="px-6 container max-w-6xl mx-auto sm:grid grid-cols-12 gap-x-12">
+    <div class="col-span-12 lg:col-span-8">
       <BlogHeader
         :title="data.title"
         :image="data.image"
         :alt="data.alt"
         :date="data.date"
         :description="data.description"
-        :tags="data.tags"
-      />
+        :tags="data.tags" />
       <div
-        class="prose prose-pre:max-w-xs sm:prose-pre:max-w-full prose-sm sm:prose-base md:prose-lg prose-h1:no-underline max-w-5xl mx-auto prose-zinc dark:prose-invert prose-img:rounded-lg"
-      >
+        class="prose prose-zinc dark:prose-invert max-w-none prose-headings:scroll-mt-28 prose-headings:tracking-tight prose-headings:font-bold prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl prose-p:leading-relaxed prose-p:text-zinc-600 dark:prose-p:text-zinc-400 prose-a:text-violet-600 dark:prose-a:text-violet-400 prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-4 prose-blockquote:border-violet-500 prose-blockquote:bg-violet-500/5 prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-xl prose-blockquote:italic prose-img:rounded-3xl prose-img:shadow-xl prose-code:text-violet-600 dark:prose-code:text-violet-400 prose-code:bg-violet-500/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none prose-pre:bg-slate-900 dark:prose-pre:bg-slate-950 prose-pre:rounded-2xl prose-pre:shadow-2xl prose-pre:border prose-pre:border-white/5">
         <ContentRenderer v-if="articles" :value="articles">
           <template #empty>
             <p>No content found.</p>
           </template>
         </ContentRenderer>
       </div>
-    </div>
-    <BlogToc />
 
-    <div class="flex flex-row flex-wrap md:flex-nowrap mt-10 gap-2">
-      <SocialShare
-        v-for="network in ['facebook', 'twitter', 'linkedin', 'email']"
-        :key="network"
-        :network="network"
-        :styled="true"
-        :label="true"
-        class="p-1"
-        aria-label="Share with {network}"
-      />
+      <!-- 分享区域 -->
+      <div class="mt-16 pt-8 border-t border-white/10 dark:border-white/5">
+        <h3 class="text-lg font-bold text-zinc-800 dark:text-zinc-100 mb-6 flex items-center gap-2">
+          <Icon name="heroicons:share" class="w-5 h-5 text-violet-500" />
+          Share this post
+        </h3>
+        <div class="flex flex-wrap gap-3">
+          <SocialShare
+            v-for="network in ['facebook', 'twitter', 'linkedin', 'email']"
+            :key="network"
+            :network="network"
+            :styled="true"
+            :label="true"
+            class="!rounded-xl !bg-white/40 dark:!bg-slate-800/40 !backdrop-blur-md !border !border-white/20 dark:!border-white/5 !text-zinc-700 dark:!text-zinc-300 hover:!bg-violet-500/10 hover:!text-violet-600 transition-all duration-300"
+            aria-label="Share with {network}" />
+        </div>
+      </div>
     </div>
+
+    <!-- 侧边目录 -->
+    <BlogToc />
   </div>
 </template>

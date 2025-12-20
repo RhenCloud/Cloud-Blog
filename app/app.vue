@@ -1,20 +1,43 @@
-<script setup>
-import { siteMetaData } from './data'
+<script setup lang="ts">
+import { ref, onMounted, computed } from "vue";
+import siteConfig from "~/config";
+// import { siteMetaData } from "./data";
 
 useHead({
   htmlAttrs: {
-    lang: 'en',
+    lang: "en",
   },
-  meta: () => siteMetaData,
-})
+  // meta: () => siteMetaData,
+});
+
+const desktopBg = siteConfig.theme.background || "";
+const mobileBg = siteConfig.theme.backgroundMobile || "";
+const currentBg = ref<string>(desktopBg);
+
+onMounted(() => {
+  if (mobileBg && window.innerWidth <= 768) {
+    currentBg.value = mobileBg;
+  }
+});
+
+const bgStyle = computed(() =>
+  currentBg.value ? { backgroundImage: "url(" + currentBg.value + ")" } : {},
+);
 </script>
 
 <template>
-  <div class="bg-[#F1F2F4] dark:text-zinc-300 dark:bg-slate-950">
-    <NuxtLoadingIndicator />
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+  <div class="relative">
+    <div
+      v-if="currentBg"
+      class="fixed inset-0 -z-20 bg-cover bg-center pointer-events-none"
+      :style="bgStyle" />
+
+    <div class="dark:text-zinc-300">
+      <NuxtLoadingIndicator />
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </div>
   </div>
 </template>
 
@@ -37,6 +60,10 @@ useHead({
 .layout-leave-to {
   opacity: 0;
   filter: blur(1rem);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html.dark {

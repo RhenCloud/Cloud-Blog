@@ -19,5 +19,9 @@
     "spacegrotesk",
     "Tailwindcss",
     "vuex"
-  ]
+  ],
+  "dependi.npm.lockFileEnabled": false,
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

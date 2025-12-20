@@ -1,0 +1,18 @@
+node_modules/
+.output/
+.nuxt/
+dist/
+build/
+public/build/
+.vscode/
+.pnp.*
+coverage/
+*.log
+*.lock
+pnpm-lock.yaml
+.env
+.env.*
+.DS_Store
+
+# ignore generated images
+public/images/generated/

@@ -1,45 +1,45 @@
 <script lang="ts" setup>
-import { makeFirstCharUpper } from '@/utils/helper'
+import { makeFirstCharUpper } from "@/utils/helper";
 
-const { data } = await useAsyncData('all-blog-post-by-category', () =>
-  queryCollection('content').all(),
-)
+const { data } = await useAsyncData("all-blog-post-by-category", () =>
+  queryCollection("content").all(),
+);
 
-const allTags = new Map()
+const allTags = new Map();
 
 data.value?.forEach((blog) => {
-  const tags: Array<string> = (blog.meta.tags as string[]) || []
+  const tags: Array<string> = (blog.meta.tags as string[]) || [];
   tags.forEach((tag) => {
     if (allTags.has(tag)) {
-      const cnt = allTags.get(tag)
-      allTags.set(tag, cnt + 1)
+      const cnt = allTags.get(tag);
+      allTags.set(tag, cnt + 1);
     } else {
-      allTags.set(tag, 1)
+      allTags.set(tag, 1);
     }
-  })
-})
+  });
+});
 
 useHead({
-  title: 'Categories',
+  title: "Categories",
   meta: [
     {
-      name: 'description',
+      name: "description",
       content:
-        'Below All the topics are listed on which either I have written a blog or will write a blog in near future.',
+        "Below All the topics are listed on which either I have written a blog or will write a blog in near future.",
     },
   ],
-})
+});
 
 // Generate OG Image
-const siteData = useSiteConfig()
+const siteData = useSiteConfig();
 defineOgImage({
   props: {
-    title: 'Categories',
+    title: "Categories",
     description:
-      'Below All the topics are listed on which either I have written a blog or will write a blog in near future.',
+      "Below All the topics are listed on which either I have written a blog or will write a blog in near future.",
     siteName: siteData.url,
   },
-})
+});
 </script>
 
 <template>
@@ -50,8 +50,7 @@ defineOgImage({
         v-for="topic in allTags"
         :key="topic[0]"
         :title="makeFirstCharUpper(topic[0])"
-        :count="topic[1]"
-      />
+        :count="topic[1]" />
     </div>
   </main>
 </template>
