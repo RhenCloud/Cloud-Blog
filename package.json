@@ -1,7 +1,6 @@
 {
-  "name": "@nurriyad/nuxt-blog",
-  "version": "2.0.0",
-  "private": true,
+  "name": "cloud-blog",
+  "private": false,
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",

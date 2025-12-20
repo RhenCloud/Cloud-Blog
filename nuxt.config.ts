@@ -44,12 +44,12 @@ export default defineNuxtConfig({
     strict: true,
   },
 
-  // nitro: {
-  //   prerender: {
-  //     crawlLinks: true,
-  //     routes: ['/', '/rss.xml'],
-  //   },
-  // },
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ["/", "/rss.xml"],
+    },
+  },
 
   colorMode: {
     classSuffix: "",

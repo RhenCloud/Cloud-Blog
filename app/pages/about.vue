@@ -1,5 +1,9 @@
-<script setup lang="ts">
-import { aboutPage, footerData, navbarData, socialLinks } from "~/data";
+<template>
+  <h1>Hello</h1>
+</template>
+
+<!-- <script setup lang="ts">
+import { aboutPage, footerData } from "~/data";
 
 useHead({
   title: "About",
@@ -68,4 +72,4 @@ useHead({
       </div>
     </div>
   </div>
-</template>
+</template> -->
