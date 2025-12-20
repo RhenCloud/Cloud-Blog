@@ -61,9 +61,20 @@ export default defineNuxtConfig({
     experimental: { nativeSqlite: true },
     build: {
       markdown: {
+        toc: {
+          depth: 3,
+        },
         highlight: {
           theme: "dracula",
+          langs: ["c"],
         },
+        remarkPlugins: {
+          "remark-gfm": {},
+          "remark-rehype": {},
+        },
+        // rehypePlugins: {
+        //   "rehype-prism": {},
+        // },
       },
     },
   },

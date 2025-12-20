@@ -62,24 +62,6 @@ useHead({
           </template>
         </ContentRenderer>
       </div>
-
-      <!-- 分享区域 -->
-      <div class="mt-16 pt-8 border-t border-white/10 dark:border-white/5">
-        <h3 class="text-lg font-bold text-zinc-800 dark:text-zinc-100 mb-6 flex items-center gap-2">
-          <Icon name="heroicons:share" class="w-5 h-5 text-violet-500" />
-          Share this post
-        </h3>
-        <div class="flex flex-wrap gap-3">
-          <SocialShare
-            v-for="network in ['facebook', 'twitter', 'linkedin', 'email']"
-            :key="network"
-            :network="network"
-            :styled="true"
-            :label="true"
-            class="!rounded-xl !bg-white/40 dark:!bg-slate-800/40 !backdrop-blur-md !border !border-white/20 dark:!border-white/5 !text-zinc-700 dark:!text-zinc-300 hover:!bg-violet-500/10 hover:!text-violet-600 transition-all duration-300"
-            aria-label="Share with {network}" />
-        </div>
-      </div>
     </div>
 
     <!-- 侧边目录 -->
