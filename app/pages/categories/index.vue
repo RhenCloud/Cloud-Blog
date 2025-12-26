@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { makeFirstCharUpper } from "@/utils/helper";
-
 const { data } = await useAsyncData("all-blog-post-by-category", () =>
   queryCollection("content").all(),
 );
@@ -8,13 +6,13 @@ const { data } = await useAsyncData("all-blog-post-by-category", () =>
 const allTags = new Map();
 
 data.value?.forEach((blog) => {
-  const tags: Array<string> = (blog.meta.tags as string[]) || [];
-  tags.forEach((tag) => {
-    if (allTags.has(tag)) {
-      const cnt = allTags.get(tag);
-      allTags.set(tag, cnt + 1);
+  const categories: Array<string> = (blog.meta.categories as string[]) || [];
+  categories.forEach((category) => {
+    if (allTags.has(category)) {
+      const cnt = allTags.get(category);
+      allTags.set(category, cnt + 1);
     } else {
-      allTags.set(tag, 1);
+      allTags.set(category, 1);
     }
   });
 });
@@ -46,11 +44,7 @@ defineOgImage({
   <main class="container max-w-5xl mx-auto text-zinc-600">
     <CategoryHero />
     <div class="flex flex-wrap px-6 mt-12 gap-3">
-      <CategoryCard
-        v-for="topic in allTags"
-        :key="topic[0]"
-        :title="makeFirstCharUpper(topic[0])"
-        :count="topic[1]" />
+      <CategoryCard v-for="topic in allTags" :key="topic[0]" :title="topic[0]" :count="topic[1]" />
     </div>
   </main>
 </template>

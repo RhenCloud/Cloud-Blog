@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { makeFirstCharUpper } from "@/utils/helper";
-
 const route = useRoute();
 
 // take category from route params & make first char upper
@@ -10,7 +8,7 @@ const category = computed(() => {
 
   if (Array.isArray(name)) strName = name.at(0) || "";
   else strName = name;
-  return makeFirstCharUpper(strName);
+  return strName;
 });
 </script>
 

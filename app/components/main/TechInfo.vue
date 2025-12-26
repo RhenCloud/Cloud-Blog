@@ -15,7 +15,7 @@ const techStack = computed(() => {
     { label: "构建平台", value: platform.name, icon: platform.icon },
     { label: "图片存储", value: "去图图床", icon: "heroicons:photo" },
     { label: "软件协议", value: "MIT", icon: "heroicons:document-text" },
-    { label: "文章许可", value: "CC BY-NC-SA 4.0", icon: "heroicons:creative-commons" },
+    { label: "文章许可", value: "CC BY-NC-SA 4.0", icon: "fa-brands:creative-commons" },
     {
       label: "规范域名",
       value: siteConfig.siteMeta.url.replace("https://", ""),

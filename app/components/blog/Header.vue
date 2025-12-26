@@ -45,7 +45,7 @@ withDefaults(defineProps<Props>(), {
       </h1>
 
       <p class="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed italic">
-        "{{ description }}"
+        「{{ description }}」
       </p>
     </div>
 

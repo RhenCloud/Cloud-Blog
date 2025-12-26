@@ -16,10 +16,8 @@ const route = useRoute();
     <div
       class="absolute inset-0 pointer-events-none -z-10 transition-all duration-700 ease-in-out"
       :style="route.path === '/' ? { clipPath: 'inset(100vh 0 0 0)' } : {}">
-      <!-- 基础渐变层 -->
       <div
         class="absolute inset-0 bg-gradient-to-b from-white/70 via-white/50 to-white/80 dark:from-slate-900/80 dark:via-slate-900/70 dark:to-slate-900/90 backdrop-blur-xl"></div>
-      <!-- 纹理层：增加质感 -->
       <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] mix-blend-overlay"></div>
     </div>
   </div>

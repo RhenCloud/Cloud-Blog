@@ -2,14 +2,14 @@
 import type { BlogPost } from "@/types/blog";
 const route = useRoute();
 
-// take category from route params & make first char upper
+// Take category from route params & ensure it's a valid string
 const category = computed(() => {
   const name = route.params.category || "";
   let strName = "";
 
   if (Array.isArray(name)) strName = name.at(0) || "";
   else strName = name;
-  return strName;
+  return strName.trim().toLowerCase(); // Convert to lowercase for case-insensitive matching
 });
 
 const { data } = await useAsyncData(`category-data-${category.value}`, () =>
@@ -18,26 +18,33 @@ const { data } = await useAsyncData(`category-data-${category.value}`, () =>
     .then((articles) =>
       articles.filter((article) => {
         const meta = article.meta as unknown as BlogPost;
-        return meta.tags.includes(category.value);
+        return (
+          meta.published &&
+          meta.categories?.map((cat) => cat.toLowerCase()).includes(category.value)
+        ); // Case-insensitive matching
       }),
     ),
 );
 
 const formattedData = computed(() => {
-  return data.value?.map((articles) => {
-    const meta = articles.meta as unknown as BlogPost;
-    return {
-      path: articles.path,
-      title: articles.title || "no-title available",
-      description: articles.description || "no-description available",
-      image: meta.image || "/blogs-img/blog.jpg",
-      alt: meta.alt || "no alter data available",
-      ogImage: meta.ogImage || "/blogs-img/blog.jpg",
-      date: meta.date || "not-date-available",
-      tags: meta.tags || [],
-      published: meta.published || false,
-    };
-  });
+  return (
+    data.value
+      ?.map((articles) => {
+        const meta = articles.meta as unknown as BlogPost;
+        return {
+          path: articles.path,
+          title: articles.title || "no-title available",
+          description: articles.description || "no-description available",
+          image: meta.image || "/blogs-img/blog.jpg",
+          alt: meta.alt || "no alter data available",
+          ogImage: meta.ogImage || "/blogs-img/blog.jpg",
+          date: meta.date || "not-date-available",
+          tags: meta.tags || [],
+          published: meta.published || false,
+        };
+      })
+      .filter((post) => post.published) || [] // Ensure only published posts are shown
+  );
 });
 
 useHead({
@@ -48,16 +55,6 @@ useHead({
       content: `You will find all the ${category.value} related post here`,
     },
   ],
-});
-
-// Generate OG Image
-const siteData = useSiteConfig();
-defineOgImage({
-  props: {
-    title: category.value?.toUpperCase(),
-    description: `You will find all the ${category.value} related post here`,
-    siteName: siteData.url,
-  },
 });
 </script>
 
@@ -77,7 +74,7 @@ defineOgImage({
         :og-image="post.ogImage"
         :tags="post.tags"
         :published="post.published" />
-      <BlogEmpty v-if="data?.length === 0" />
+      <BlogEmpty v-if="formattedData.length === 0" />
     </div>
   </main>
 </template>

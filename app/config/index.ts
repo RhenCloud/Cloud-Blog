@@ -30,7 +30,7 @@ const siteConfig = {
   navbar: {
     links: [
       // { name: "Home", path: "/", icon: "fa6-solid:house" },
-      { name: "Blogs", path: "/blogs", icon: "fa-solid:newspaper" },
+      { name: "Archive", path: "/archive", icon: "fa-solid:newspaper" },
       { name: "Categories", path: "/categories", icon: "fa-solid:folder" },
       { name: "Tags", path: "/tags", icon: "fa-solid:tags" },
       { name: "About", path: "/about", icon: "fa-solid:user" },

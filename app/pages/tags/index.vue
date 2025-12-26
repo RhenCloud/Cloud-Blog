@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { makeFirstCharUpper } from "@/utils/helper";
-
 const { data } = await useAsyncData("all-blog-post-by-tags", () =>
   queryCollection("content").all(),
 );
@@ -63,7 +61,7 @@ defineOgImage({
         class="group relative flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-md border border-white/20 dark:border-white/5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
         <span
           class="text-lg font-bold text-zinc-700 dark:text-zinc-200 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
-          #{{ makeFirstCharUpper(tag) }}
+          #{{ tag }}
         </span>
         <span
           class="flex items-center justify-center min-w-[24px] h-6 px-1.5 rounded-full bg-violet-500/10 text-violet-600 dark:text-violet-400 text-xs font-bold border border-violet-500/20">

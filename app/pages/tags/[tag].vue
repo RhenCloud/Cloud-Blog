@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { BlogPost } from "@/types/blog";
-import { makeFirstCharUpper } from "@/utils/helper";
 const route = useRoute();
 
 const tag = computed(() => {
@@ -18,7 +17,7 @@ const { data } = await useAsyncData(`tag-data-${tag.value}`, () =>
     .then((articles) =>
       articles.filter((article) => {
         const meta = article.meta as unknown as BlogPost;
-        return meta.tags.some((t) => t.toLowerCase() === tag.value.toLowerCase());
+        return meta.published && meta.tags.some((t) => t.toLowerCase() === tag.value.toLowerCase());
       }),
     ),
 );
@@ -41,7 +40,7 @@ const formattedData = computed(() => {
 });
 
 useHead({
-  title: `Tag: ${makeFirstCharUpper(tag.value)}`,
+  title: `Tag: ${tag.value}`,
   meta: [
     {
       name: "description",
@@ -75,10 +74,10 @@ defineOgImage({
       </div>
       <h1
         class="text-4xl md:text-5xl font-bold text-zinc-800 dark:text-zinc-100 mb-4 tracking-tight">
-        #{{ makeFirstCharUpper(tag) }}
+        #{{ tag }}
       </h1>
       <p class="text-zinc-600 dark:text-zinc-400 text-center">
-        Found {{ data?.length || 0 }} posts with this tag
+        Found {{ formattedData.length || 0 }} posts with this tag
       </p>
     </div>
 
@@ -95,7 +94,7 @@ defineOgImage({
         :og-image="post.ogImage"
         :tags="post.tags"
         :published="post.published" />
-      <BlogEmpty v-if="data?.length === 0" />
+      <BlogEmpty v-if="formattedData.length === 0" />
     </div>
   </main>
 </template>

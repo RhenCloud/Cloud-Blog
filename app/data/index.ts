@@ -4,7 +4,7 @@
 
 // export const navItems = [
 //   { label: "Home", path: "/" },
-//   { label: "Blogs", path: "/blogs" },
+//   { label: "Archive", path: "/archive" },
 //   { label: "Categories", path: "/categories" },
 //   { label: "About", path: "/about" },
 // ];
@@ -25,8 +25,8 @@ export const footerData = {
 //     "Get Web Development, Javascript, Typescript, NodeJs, Vue, and Nuxt, Related Articles, Tips, Learning resources and more.",
 // };
 
-export const blogsPage = {
-  title: "All Blogs",
+export const archivePage = {
+  title: "All Archives",
   description: "Here you will find all the blog posts I have written & published on this site.",
 };
 

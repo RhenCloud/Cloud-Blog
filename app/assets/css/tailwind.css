@@ -1,3 +1,15 @@
+@import url("https://chinese-fonts-cdn.deno.dev/packages/maple-mono-cn/dist/MapleMono-CN-Regular/result.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@theme {
+  --font-roboto: "Maple Mono CN", sans-serif;
+  --font-display--font-feature-settings: "zero", "cv03", "ss03", "ss05", "cv97", "cv98";
+}
+
+/* @import url("https://fontsapi.zeoseven.com/292/main/result.css"); */
+/* @theme {
+  --font-roboto: "LXGW WenKai", sans-serif;
+} */

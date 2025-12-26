@@ -1,8 +1,12 @@
 import siteConfig from "./app/config";
+// import tailwindcss from "@tailwindcss/vite";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2025-12-20",
   srcDir: "app",
+  css: ["~/assets/css/tailwind.css"],
+
+  // plugins: [tailwindcss()],
 
   modules: [
     "@nuxt/icon",
@@ -50,6 +54,8 @@ export default defineNuxtConfig({
       routes: ["/", "/rss.xml"],
     },
   },
+
+  // fonts: {},
 
   colorMode: {
     classSuffix: "",
