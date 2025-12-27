@@ -1,7 +1,7 @@
 ---
-title: "在Windows下配置Fish1"
+title: "在Windows下配置Fish"
 published: true
-date: 2025-10-05
+date: 2025-10-03
 updatedDate: 2025-10-03
 description: "在Windows下配置Fish"
 image: https://img.rhen.cloud/file/Blog/1761401028478_PixPin_2025-10-03_15-44-52.png

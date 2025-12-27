@@ -13,7 +13,7 @@ const techStack = computed(() => {
   };
   return [
     { label: "构建平台", value: platform.name, icon: platform.icon },
-    { label: "图片存储", value: "去图图床", icon: "heroicons:photo" },
+    { label: "图片存储", value: "Cloudflare R2", icon: "heroicons:photo" },
     { label: "软件协议", value: "MIT", icon: "heroicons:document-text" },
     { label: "文章许可", value: "CC BY-NC-SA 4.0", icon: "fa-brands:creative-commons" },
     {
@@ -74,19 +74,8 @@ const versions = computed(() => {
           </div>
         </div>
 
-        <!-- 展开/收起按钮 -->
-        <button
-          class="w-full mt-8 py-2 flex items-center justify-center gap-2 text-xs font-bold text-zinc-400 hover:text-violet-500 transition-colors border-t border-white/10 dark:border-white/5 pt-6"
-          @click="showMore = !showMore">
-          <Icon
-            :name="showMore ? 'heroicons:chevron-double-up' : 'heroicons:chevron-double-down'"
-            class="w-3 h-3" />
-          {{ showMore ? "收起构建信息" : "展开构建信息" }}
-        </button>
-
         <!-- 详细版本信息网格 -->
         <div
-          v-show="showMore"
           class="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-6 animate-in fade-in slide-in-from-top-2 duration-500">
           <div v-for="v in versions" :key="v.label" class="text-center">
             <div

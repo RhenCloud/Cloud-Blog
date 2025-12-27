@@ -1,10 +1,14 @@
 import siteConfig from "./app/config";
-// import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from "@tailwindcss/vite";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2025-12-20",
   srcDir: "app",
-  css: ["~/assets/css/tailwind.css"],
+  css: ["./app/assets/css/main.css"],
+
+  future: {
+    compatibilityVersion: 4,
+  },
 
   // plugins: [tailwindcss()],
 
@@ -19,10 +23,14 @@ export default defineNuxtConfig({
     "nuxt-og-image",
     "@nuxt/content",
     "@nuxtjs/color-mode",
-    "@nuxtjs/tailwindcss",
+    // "@nuxtjs/tailwindcss",
     "@formkit/auto-animate",
     // '@stefanobartoletti/nuxt-social-share',
   ],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
   app: {
     head: {

@@ -17,7 +17,6 @@ const data = computed<BlogPost>(() => {
     description: articles.value?.description || "no-description available",
     image: meta?.image || "/not-found.jpg",
     alt: meta?.alt || "no alter data available",
-    ogImage: (articles?.value?.ogImage as unknown as string) || "/not-found.jpg",
     date: meta?.date || "not-date-available",
     tags: meta?.tags || [],
     published: meta?.published || false,

@@ -26,9 +26,9 @@ const bgStyle = computed(() =>
 </script>
 
 <template>
-  <link
+  <!-- <link
     rel="stylesheet"
-    href="https://chinese-fonts-cdn.deno.dev/packages/maple-mono-cn/dist/MapleMono-CN-Regular/result.css" />
+    href="https://chinese-fonts-cdn.deno.dev/packages/maple-mono-cn/dist/MapleMono-CN-Regular/result.css" /> -->
   <div class="relative">
     <div
       v-if="currentBg"

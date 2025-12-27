@@ -1,0 +1,20 @@
+@import "tailwindcss";
+/* @import "tailwindcss/preflight";
+@tailwind utilities; */
+/* @import url("https://fonts.rhen.cloud/maplemono-cn-regular/result.css"); */
+/* @import url("https://chinese-fonts-cdn.deno.dev/packages/maple-mono-cn/dist/MapleMono-CN-Regular/result.css"); */
+/* @import "tailwindcss/preflight"; */
+/* @imoprt "utilities"; */
+/* @import url("https://fontsapi.zeoseven.com/292/main/result.css"); */
+
+/* @theme {
+  --font-roboto: "LXGW WenKai", sans-serif;
+}
+body {
+  font-familt: var(--font-roboto);
+} */
+
+/* @theme {
+  --font-roboto: "Maple Mono CN", sans-serif;
+  --font-display--font-feature-settings: "zero", "cv03", "ss03", "ss05", "cv97", "cv98";
+} */
