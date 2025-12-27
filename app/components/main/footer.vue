@@ -4,6 +4,7 @@
     <!-- 一言 -->
     <p v-if="showHitokoto && quote" class="text-text-muted text-sm m-0 italic">
       「{{ quote }}」<span v-if="from" class="ml-1.5">—— {{ from }}</span>
+      <span v-if="from && fromWho" class="ml-1.5"> · {{ fromWho }}</span>
     </p>
 
     <!-- 访问统计 -->
@@ -61,6 +62,7 @@ const contact = siteConfig.footer || {};
 const config = useRuntimeConfig();
 const quote = ref("");
 const from = ref("");
+const fromWho = ref("");
 const pageviews = ref(0);
 const visitors = ref(0);
 const statsError = ref(true);
@@ -86,8 +88,10 @@ const fetchHitokoto = async () => {
   try {
     const resp = await fetch(buildHitokotoUrl());
     const data = await resp.json();
+    console.log(data);
     quote.value = data.hitokoto || "";
     from.value = data.from || "";
+    fromWho.value = data.from_who || "";
   } catch (e) {
     console.warn("Hitokoto fetch failed", e);
   }

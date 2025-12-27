@@ -10,18 +10,19 @@ export default defineEventHandler(async () => {
     platform = { name: "Netlify", icon: "simple-icons:netlify" };
   } else if (process.env.CF_PAGES) {
     platform = { name: "Cloudflare", icon: "simple-icons:cloudflare" };
-  } else if (process.env.GITHUB_ACTIONS) {
-    platform = { name: "GitHub Actions", icon: "simple-icons:githubactions" };
   } else if (process.env.EDGEONE) {
     platform = { name: "Tencent EdgeOne", icon: "simple-icons:tencentcloud" };
   }
 
+  const deps = pkg.dependencies as Record<string, string> | undefined;
+  const devDeps = pkg.devDependencies as Record<string, string> | undefined;
+
   return {
     platform,
     versions: {
-      vue: pkg.devDependencies.vue,
+      vue: deps?.vue ?? devDeps?.vue,
       nuxt: nuxtVersion,
-      content: pkg.devDependencies["@nuxt/content"],
+      content: deps?.["@nuxt/content"] ?? devDeps?.["@nuxt/content"],
       node: process.version,
       os: process.platform,
       arch: process.arch,

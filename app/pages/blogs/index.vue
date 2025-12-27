@@ -18,7 +18,6 @@ const formattedData = computed(() => {
         description: articles.description || "no-description available",
         image: meta.image || "/not-found.jpg",
         alt: meta.alt || "no alter data available",
-        ogImage: meta.ogImage || "/not-found.jpg",
         date: meta.date || "not-date-available",
         tags: meta.tags || [],
         published: meta.published || false,
@@ -106,7 +105,6 @@ defineOgImage({
           :description="post.description"
           :image="post.image"
           :alt="post.alt"
-          :og-image="post.ogImage"
           :tags="post.tags"
           :published="post.published" />
       </template>
