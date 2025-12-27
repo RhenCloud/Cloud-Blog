@@ -10,7 +10,7 @@ const { data: content } = await useAsyncData(route.path, () => queryCollection("
   <div class="container mx-auto mt-10 px-6 max-w-6xl">
     <div class="flex gap-8">
       <!-- Main content -->
-      <main class="prose prose-zinc dark:prose-invert mx-auto mt-10 px-6 w-half h-full text-left">
+      <main class="prose prose-zinc dark:prose-invert mt-10 w-2/3 text-left">
         <ContentRenderer v-if="content" :value="content" />
       </main>
 
