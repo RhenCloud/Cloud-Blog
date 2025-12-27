@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import siteConfig from "~/config";
-
-const showMore = ref(false);
 
 const { data: sysInfo } = await useFetch("/sys-info");
 

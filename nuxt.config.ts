@@ -10,8 +10,6 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
 
-  // plugins: [tailwindcss()],
-
   modules: [
     "@nuxt/icon",
     "@nuxt/image",
@@ -54,6 +52,12 @@ export default defineNuxtConfig({
 
   typescript: {
     strict: true,
+  },
+
+  postcss: {
+    plugins: {
+      "@tailwindcss/postcss": {},
+    },
   },
 
   nitro: {

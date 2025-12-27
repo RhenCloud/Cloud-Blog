@@ -8,6 +8,7 @@ module.exports = {
     "./app/components/**/*.vue",
     "./app/pages/**/*.vue",
     "./app/layouts/**/*.vue",
+    "./content/**/*.{md,html}",
   ],
   theme: {
     extend: {
@@ -36,5 +37,5 @@ module.exports = {
     },
   },
   plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
-  layers: ["base", "components", "utilities"],
+  // layers: ["base", "components", "utilities"],
 };
