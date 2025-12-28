@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { formatDate } from "~/utils/helper";
 interface Props {
-  title: string;
-  image: string;
-  alt: string;
-  description: string;
-  date: string;
-  tags: Array<string>;
+  title?: string;
+  image?: string;
+  alt?: string;
+  description?: string;
+  date?: string;
+  tags?: Array<string>;
 }
 
 withDefaults(defineProps<Props>(), {
@@ -25,7 +26,7 @@ withDefaults(defineProps<Props>(), {
         <div
           class="flex items-center text-sm font-bold text-violet-600 dark:text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20">
           <LogoDate class="mr-2 w-4 h-4" />
-          {{ date }}
+          {{ formatDate(date) }}
         </div>
         <div class="flex items-center gap-2 flex-wrap">
           <template v-for="tag in tags" :key="tag">
