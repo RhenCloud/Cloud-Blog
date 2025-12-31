@@ -6,6 +6,18 @@ export default defineNuxtConfig({
   srcDir: "app",
   css: ["./app/assets/css/main.css"],
 
+  components: [
+    {
+      path: "~/components/content",
+      extensions: ["vue"],
+      prefix: "",
+    },
+    {
+      path: "~/components",
+      extensions: ["vue"],
+    },
+  ],
+
   future: {
     compatibilityVersion: 4,
   },
@@ -89,7 +101,7 @@ export default defineNuxtConfig({
             dark: "github-dark",
             light: "github-light",
           },
-          langs: ["bash", "c"],
+          langs: ["bash", "c", "python"],
         },
         remarkPlugins: {
           "remark-gfm": {},

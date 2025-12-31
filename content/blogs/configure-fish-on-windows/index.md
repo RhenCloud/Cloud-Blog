@@ -55,7 +55,7 @@ pacman -Syy
 
 修改`/etc/nsswitch.conf`文档
 
-```bash filename=/etc/nsswitch.conf
+```[/etc/nsswitch.conf]
 # Begin /etc/nsswitch.conf
 
 passwd: files db
@@ -69,6 +69,18 @@ db_shell: cygwin desc
 db_gecos: cygwin desc
 
 # End /etc/nsswitch.conf
+```
+
+::Warning{title="你好"}
+Warning!
+::
+
+::Warning{title="你好"}
+Warning1!
+::
+
+```python [main.py]
+print("hello")
 ```
 
 完成，可以愉快的使用 Fish 了！
