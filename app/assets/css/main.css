@@ -135,4 +135,10 @@ html {
 
 .prose pre {
   background-color: var(--code-bg, #111827);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.prose pre code {
+  white-space: pre;
 }

@@ -10,10 +10,8 @@ export default defineNuxtConfig({
   css: ["./app/assets/css/main.css"],
 
   site: {
-    // url: siteConfig.siteMeta.url,
-    url: "https://blog.rhen.cloud",
-    // name: siteConfig.siteMeta.title,
-    name: "RhenCloud's Blog",
+    url: siteConfig.siteMeta.url,
+    name: siteConfig.siteMeta.title,
     description: siteConfig.siteMeta.description,
     author: siteConfig.siteMeta.author,
   },
@@ -29,10 +27,8 @@ export default defineNuxtConfig({
     "@nuxtjs/sitemap",
     "@nuxt/content",
     "@nuxtjs/color-mode",
-    // "@nuxtjs/tailwindcss",
-    "@formkit/auto-animate",
     "@nuxt/ui",
-    // '@stefanobartoletti/nuxt-social-share',
+    "@formkit/auto-animate",
   ],
 
   vite: {

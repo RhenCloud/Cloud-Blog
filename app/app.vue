@@ -27,9 +27,6 @@ const bgStyle = computed(() =>
 
 <template>
   <UApp>
-    <!-- <link
-    rel="stylesheet"
-    href="https://chinese-fonts-cdn.deno.dev/packages/maple-mono-cn/dist/MapleMono-CN-Regular/result.css" /> -->
     <meta name="color-scheme" content="light dark" />
     <div class="relative">
       <div

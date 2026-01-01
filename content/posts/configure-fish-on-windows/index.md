@@ -1,5 +1,5 @@
 ---
-title: "在 Windows 下配置 Fish1"
+title: "在 Windows 下配置 Fish"
 published: true
 date: 2025-10-05
 updatedDate: 2025-10-03
@@ -10,7 +10,7 @@ tags: ["Development", "Windows", "Fish"]
 categories: ["Technology"]
 ---
 
-# 前言
+## 前言
 
 在经历了 Linux 下一系列的生态折磨后，我最终回归了 Windows 的怀抱。
 
@@ -28,7 +28,7 @@ categories: ["Technology"]
 
 ### 安装 MSYS2
 
-```bash
+```bash [Terminal]
 scoop install msys2
 ```
 
@@ -46,7 +46,7 @@ scoop install msys2
 
 在 MSYS2 环境下运行：
 
-```bash
+```bash [Terminal]
 sed -i "s#mirror.msys2.org/#mirrors.ustc.edu.cn/msys2/#g" /etc/pacman.d/mirrorlist*
 pacman -Syy
 ```
@@ -55,7 +55,7 @@ pacman -Syy
 
 修改`/etc/nsswitch.conf`文档
 
-```[/etc/nsswitch.conf]
+```plaintext [/etc/nsswitch.conf]
 # Begin /etc/nsswitch.conf
 
 passwd: files db
@@ -69,18 +69,6 @@ db_shell: cygwin desc
 db_gecos: cygwin desc
 
 # End /etc/nsswitch.conf
-```
-
-::Warning{title="你好"}
-Warning!
-::
-
-::Warning{title="你好"}
-Warning1!
-::
-
-```python [main.py]
-print("hello")
 ```
 
 完成，可以愉快的使用 Fish 了！
