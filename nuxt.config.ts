@@ -6,6 +6,15 @@ export default defineNuxtConfig({
   srcDir: "app",
   css: ["./app/assets/css/main.css"],
 
+  site: {
+    // url: siteConfig.siteMeta.url,
+    url: "https://blog.rhen.cloud",
+    // name: siteConfig.siteMeta.title,
+    name: "RhenCloud's Blog",
+    description: siteConfig.siteMeta.description,
+    author: siteConfig.siteMeta.author,
+  },
+
   modules: [
     "@nuxt/icon",
     "@nuxt/image",
@@ -55,15 +64,6 @@ export default defineNuxtConfig({
 
   // robots: { groups: [{ userAgent: ["GPTBot", "ChatGPT-User"], disallow: ["/"] }] },
 
-  site: {
-    // url: siteConfig.siteMeta.url,
-    url: "https://blog.rhen.cloud",
-    // name: siteConfig.siteMeta.title,
-    name: "RhenCloud's Blog",
-    description: siteConfig.siteMeta.description,
-    author: siteConfig.siteMeta.author,
-  },
-
   sitemap: {
     sitemapsPathPrefix: "/",
     zeroRuntime: true,
@@ -90,7 +90,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ["/", "/rss.xml", "/sitemap_index.xml"],
+      routes: ["/", "/sitemap.xml"],
       ignore: ["/404"],
     },
     minify: true,
