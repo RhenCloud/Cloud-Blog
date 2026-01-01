@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
         if (typeof cat === "string") categories.add(cat);
       });
     } else if (typeof doc.category === "string") {
-      categories.add(doc.category);
+      categories.add(doc.category.toLowerCase());
     }
   });
 
@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
   docs.forEach((doc: Record<string, unknown>) => {
     if (doc.tags && Array.isArray(doc.tags)) {
       doc.tags.forEach((tag: unknown) => {
-        if (typeof tag === "string") tags.add(tag);
+        if (typeof tag === "string") tags.add(tag.toLowerCase());
       });
     }
   });
