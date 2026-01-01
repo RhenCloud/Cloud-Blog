@@ -13,6 +13,9 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  title: "",
+  icon: "",
+  color: "",
   type: "info",
   card: false,
   flat: false,
@@ -95,7 +98,7 @@ const iconName = computed(() => props.icon || config.value.icon);
         </div>
 
         <!-- Description -->
-        <div class="text-sm text-white/85 leading-relaxed">
+        <div class="text-sm font-bold text-zinc-800 dark:text-white/85 leading-relaxed">
           <slot></slot>
         </div>
       </div>

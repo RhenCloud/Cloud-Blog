@@ -35,18 +35,6 @@ categories: ["Development"]
 
 你也可以把它嵌入到任意文章中：`<GithubCard repo="owner/repo" />`。
 
-## 提示/警告（Warning）
-
-使用站内 `Warning` 组件展示一个警告框（支持命名 title 槽或 props 回退）：
-
-::Warning{title="注意"}
-这是通过 `::Warning` 区块语法渲染的示例警告。
-::
-
-或者使用组件语法（支持 slot 或 props）：
-
-<Warning title="另一个警告">这里是警告内容（slot）示例。</Warning>
-
 ## 告警框（Alert）
 
 `Alert` 组件支持多种类型，可以用来展示不同类型的通知信息：

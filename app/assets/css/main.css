@@ -3,7 +3,6 @@
 /* @import url("https://fontsapi.zeoseven.com/292/main/result.css"); */
 @import "tailwindcss";
 @import "@nuxt/ui";
-@import "code.css";
 @plugin "@tailwindcss/typography";
 @plugin "@tailwindcss/forms";
 @tailwind utilities;
@@ -19,6 +18,27 @@
 /* @theme {
   --font-roboto: "LXGW WenKai", sans-serif;
 } */
+
+/* 先定义计数器 */
+pre[class*="language-"] {
+  counter-reset: line;
+}
+
+/* 每个代码行 <span> / <div> 前自增计数并打印 */
+pre[class*="language-"] code > * {
+  counter-increment: line;
+  position: relative;
+  padding-left: 3rem; /* 行号留出空间 */
+}
+
+pre[class*="language-"] code > *::before {
+  content: counter(line);
+  position: absolute;
+  left: 0;
+  width: 2rem;
+  text-align: right;
+  color: #6b7280; /* Tailwind gray-500 */
+}
 
 @theme {
   --font-roboto: "JetBrains Maple Mono", sans-serif;
