@@ -28,23 +28,7 @@ export default defineNuxtConfig({
     build: {
       sourcemap: false,
       chunkSizeWarningLimit: 1000,
-      // rollupOptions: {
-      //   output: {
-      //     manualChunks: {
-      //       vendor: ["vue", "vue-router", "@nuxt/content"],
-      //       ui: ["@nuxt/ui", "@nuxt/icon"],
-      //       utils: ["fuse.js"],
-      //     },
-      //   },
-      // },
     },
-    // ssr: {
-    //   external: ["node:url", "node:fs/promises"],
-    //   noExternal: ["@nuxt/ui", "@nuxt/kit"],
-    // },
-    // optimizeDeps: {
-    //   exclude: ["@nuxt/kit", "@nuxt/ui"],
-    // },
   },
 
   app: {
@@ -69,16 +53,28 @@ export default defineNuxtConfig({
     layoutTransition: { name: "layout", mode: "out-in" },
   },
 
-  sitemap: {
-    sources: ["/api/__sitemap__/urls"],
-  },
-  robots: { groups: [{ userAgent: ["GPTBot", "ChatGPT-User"], disallow: ["/"] }] },
+  // robots: { groups: [{ userAgent: ["GPTBot", "ChatGPT-User"], disallow: ["/"] }] },
 
   site: {
-    url: siteConfig.siteMeta.url,
-    name: siteConfig.siteMeta.title,
+    // url: siteConfig.siteMeta.url,
+    url: "https://blog.rhen.cloud",
+    // name: siteConfig.siteMeta.title,
+    name: "RhenCloud's Blog",
     description: siteConfig.siteMeta.description,
     author: siteConfig.siteMeta.author,
+  },
+
+  sitemap: {
+    sitemapsPathPrefix: "/",
+    zeroRuntime: true,
+    sitemaps: {
+      posts: {
+        include: ["/blog/**"],
+      },
+    },
+    autoLastmod: true,
+    // sources: ["/api/sitemap"],
+    // sources: ["/api/__sitemap__/urls"],
   },
 
   typescript: {
@@ -94,7 +90,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ["/", "/rss.xml", "/sitemap.xml"],
+      routes: ["/", "/rss.xml", "/sitemap_index.xml"],
       ignore: ["/404"],
     },
     minify: true,
