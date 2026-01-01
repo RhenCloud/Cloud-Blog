@@ -6,20 +6,6 @@ export default defineNuxtConfig({
   srcDir: "app",
   css: ["./app/assets/css/main.css"],
 
-  // components: {
-  //   dirs: [
-  //     {
-  //       path: "~/components",
-  //       extensions: ["vue"],
-  //     },
-  //     {
-  //       path: "~/components/content",
-  //       extensions: ["vue"],
-  //       prefix: "Prose",
-  //     },
-  //   ],
-  // },
-
   modules: [
     "@nuxt/icon",
     "@nuxt/image",
@@ -42,16 +28,23 @@ export default defineNuxtConfig({
     build: {
       sourcemap: false,
       chunkSizeWarningLimit: 1000,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            vendor: ["vue", "vue-router", "@nuxt/content"],
-            ui: ["@nuxt/ui", "@nuxt/icon"],
-            utils: ["fuse.js"],
-          },
-        },
-      },
+      // rollupOptions: {
+      //   output: {
+      //     manualChunks: {
+      //       vendor: ["vue", "vue-router", "@nuxt/content"],
+      //       ui: ["@nuxt/ui", "@nuxt/icon"],
+      //       utils: ["fuse.js"],
+      //     },
+      //   },
+      // },
     },
+    // ssr: {
+    //   external: ["node:url", "node:fs/promises"],
+    //   noExternal: ["@nuxt/ui", "@nuxt/kit"],
+    // },
+    // optimizeDeps: {
+    //   exclude: ["@nuxt/kit", "@nuxt/ui"],
+    // },
   },
 
   app: {
@@ -114,6 +107,10 @@ export default defineNuxtConfig({
     preference: "system",
     fallback: "light",
   },
+
+  // build: {
+  //   transpile: ["@nuxt/ui"],
+  // },
 
   content: {
     experimental: { nativeSqlite: true },
