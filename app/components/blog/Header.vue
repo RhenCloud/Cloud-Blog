@@ -40,7 +40,7 @@ withDefaults(defineProps<Props>(), {
       </div>
 
       <h1
-        class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-zinc-800 dark:text-zinc-100 mb-6 tracking-tight leading-tight break-words">
+        class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-zinc-800 dark:text-zinc-100 mb-6 tracking-tight leading-tight wrap-break-word">
         {{ title }}
       </h1>
 
