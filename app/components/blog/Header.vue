@@ -19,15 +19,15 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <header class="py-12">
-    <div class="text-center mb-8">
-      <div class="flex items-center justify-center gap-3 mb-6">
+  <header class="py-12 w-full">
+    <div class="grid items-center text-center mb-8 w-full px-4">
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
         <div
-          class="flex items-center text-sm font-bold text-violet-600 dark:text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20">
+          class="flex items-center text-sm font-bold text-violet-600 dark:text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20 shrink-0">
           <Icon name="mdi:calendar" class="mr-2 w-4 h-4" />
           {{ date }}
         </div>
-        <div class="flex items-center gap-2 flex-wrap">
+        <div class="flex items-center justify-center gap-2 flex-wrap">
           <template v-for="tag in tags" :key="tag">
             <NuxtLink :to="`/tags/${tag.toLocaleLowerCase()}`">
               <span
@@ -49,7 +49,7 @@ withDefaults(defineProps<Props>(), {
       </p>
     </div>
 
-    <div class="relative group max-w-4xl mx-auto mb-12 w-full">
+    <div class="relative group w-full mb-12 px-4">
       <div
         class="absolute inset-0 bg-linear-to-tr from-violet-500/20 to-fuchsia-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
       <NuxtImg

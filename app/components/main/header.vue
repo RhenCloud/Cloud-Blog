@@ -35,7 +35,7 @@ watch(
           <NuxtLink
             to="/"
             class="flex items-center gap-2 h-10 px-4 rounded-full bg-white/80 dark:bg-slate-900/80 border border-zinc-200/50 dark:border-white/10 shadow-sm backdrop-blur-xl transition-transform active:scale-95">
-            <Icon name="fa-solid:cat" size="18" class="text-primary flex items-center" />
+            <!-- <Icon name="fa-solid:cat" size="18" class="text-primary flex items-center" /> -->
             <span class="text-base font-bold text-primary">{{ siteConfig.siteMeta.title }}</span>
           </NuxtLink>
 
@@ -74,7 +74,7 @@ watch(
               'hover:bg-zinc-100 dark:hover:bg-white/10': !isActive('/'),
             }">
             <NuxtLink to="/" class="flex h-12 duration-200 items-center gap-2 px-4 text-lg">
-              <Icon name="fa-solid:cat" size="20" class="flex items-center text-primary" />
+              <!-- <Icon name="fa-solid:cat" size="20" class="flex items-center text-primary" /> -->
               <span class="font-bold text-primary">{{ siteConfig.siteMeta.title }}</span>
             </NuxtLink>
           </div>

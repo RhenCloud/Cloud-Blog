@@ -3,7 +3,8 @@ const route = useRoute();
 </script>
 
 <template>
-  <div class="gd-container font-spacegrotesk relative overflow-x-hidden">
+  <!-- <UContainer> -->
+  <div class="font-spacegrotesk relative overflow-x-hidden">
     <MainHeader />
     <main>
       <slot />
@@ -21,6 +22,7 @@ const route = useRoute();
       <!-- <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] mix-blend-overlay"></div> -->
     </div>
   </div>
+  <!-- </UContainer> -->
 </template>
 
 <style scoped>
