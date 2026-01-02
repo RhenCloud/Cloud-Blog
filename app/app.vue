@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue";
 import siteConfig from "~/config";
 // import { siteMetaData } from "./data";
 
@@ -12,27 +11,29 @@ useHead({
 
 const desktopBg = siteConfig.theme.background || "";
 const mobileBg = siteConfig.theme.backgroundMobile || "";
-const currentBg = ref<string>(desktopBg);
-
-onMounted(() => {
-  if (mobileBg && window.innerWidth <= 768) {
-    currentBg.value = mobileBg;
-  }
-});
-
-const bgStyle = computed(() =>
-  currentBg.value ? { backgroundImage: "url(" + currentBg.value + ")" } : {},
-);
 </script>
 
 <template>
   <UApp>
     <meta name="color-scheme" content="light dark" />
     <div class="relative">
+      <!-- Desktop Background -->
       <div
-        v-if="currentBg"
-        class="fixed inset-0 -z-20 bg-cover bg-center pointer-events-none"
-        :style="bgStyle" />
+        v-if="desktopBg"
+        class="fixed inset-0 -z-20 bg-cover bg-center pointer-events-none hidden md:block"
+        :style="{ backgroundImage: `url(${desktopBg})` }" />
+
+      <!-- Mobile Background -->
+      <div
+        v-if="mobileBg"
+        class="fixed inset-0 -z-20 bg-cover bg-center pointer-events-none block md:hidden"
+        :style="{ backgroundImage: `url(${mobileBg})` }" />
+
+      <!-- Fallback if mobileBg is missing but desktopBg exists -->
+      <div
+        v-if="!mobileBg && desktopBg"
+        class="fixed inset-0 -z-20 bg-cover bg-center pointer-events-none block md:hidden"
+        :style="{ backgroundImage: `url(${desktopBg})` }" />
 
       <div class="dark:text-zinc-300">
         <NuxtLoadingIndicator />

@@ -36,6 +36,7 @@ const formattedData = computed(() => {
         alt: articles.alt || "no alter data available",
         date: articles.date || "not-date-available",
         tags: articles.tags || [],
+        categories: articles.categories || [],
         published: articles.published || false,
       };
     }) || []
@@ -47,16 +48,13 @@ const formattedData = computed(() => {
   <section class="pb-10 px-4">
     <div class="flex flex-row items-center justify-between pt-10 pb-6">
       <div class="flex items-center space-x-3">
-        <div class="p-2 bg-primary-10 rounded-lg">
-          <Icon name="mdi:star-three-points-outline" size="1.5em" class="text-primary" />
-        </div>
         <h2 class="text-3xl font-bold text-zinc-800 dark:text-zinc-100 tracking-tight">
           Recent Posts
         </h2>
       </div>
       <NuxtLink
         to="/blogs"
-        class="group flex items-center gap-1 text-sm font-semibold text-primary hover-text-primary transition-colors">
+        class="group flex items-center gap-1 text-sm font-semibold text-zinc-900 dark:text-zinc-50 hover-text-primary transition-colors">
         查看全部文章
         <Icon
           name="heroicons:arrow-right-20-solid"
@@ -64,18 +62,19 @@ const formattedData = computed(() => {
       </NuxtLink>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
       <template v-for="post in formattedData" :key="post.title">
         <div
-          class="transition-transform transform hover:scale-[1.02] hover:shadow-lg rounded-lg overflow-hidden">
+          class="transition-transform transform hover:scale-[1.02] hover:shadow-lg rounded-lg overflow-hidden h-full">
           <BlogCard
+            class="h-full"
             :path="post.path"
             :title="post.title"
             :date="formatDate(post.date)"
             :description="post.description"
             :image="post.image"
             :alt="post.alt"
-            :tags="post.tags"
+            :categories="post.categories"
             :published="post.published" />
         </div>
       </template>

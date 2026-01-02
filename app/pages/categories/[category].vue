@@ -31,6 +31,7 @@ const formattedData = computed(() => {
           alt: articles.alt || "no alter data available",
           date: articles.date || "not-date-available",
           tags: articles.tags || [],
+          categories: articles.categories || [],
           published: articles.published || false,
         };
       }) || []
@@ -79,6 +80,7 @@ useHead({
         :image="post.image"
         :alt="post.alt"
         :tags="post.tags"
+        :categories="post.categories"
         :published="post.published" />
       <BlogEmpty v-if="formattedData.length === 0" />
     </div>
