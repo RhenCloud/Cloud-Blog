@@ -1,6 +1,4 @@
-<script setup lang="ts">
-const route = useRoute();
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="font-spacegrotesk relative min-h-screen overflow-x-hidden flex flex-col">
