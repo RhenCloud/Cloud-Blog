@@ -13,9 +13,7 @@ const route = useRoute();
     </footer>
 
     <!-- 全局遮罩 -->
-    <div
-      class="fixed inset-0 pointer-events-none -z-10 transition-all duration-700 ease-in-out"
-      :style="route.path === '/' ? { clipPath: 'inset(100vh 0 0 0)' } : {}">
+    <div class="absolute inset-0 pointer-events-none -z-10 transition-all duration-700 ease-in-out">
       <div
         class="absolute inset-0 bg-linear-to-b from-white/40 via-white/40 to-white/70 dark:from-slate-900/40 dark:via-slate-900/40 dark:to-slate-900/70 backdrop-blur-xs"></div>
       <!-- <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] mix-blend-overlay"></div> -->
