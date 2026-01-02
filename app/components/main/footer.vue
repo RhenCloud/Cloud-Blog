@@ -37,7 +37,7 @@
         target="_blank"
         rel="noreferrer"
         class="text-primary hover:text-accent transition-colors"
-        >Tailwind CSS</a
+        >Tailwind CSS 4</a
       >
       ·
       <a
@@ -56,10 +56,8 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { useRuntimeConfig } from "#imports";
 import siteConfig from "~/config";
 const contact = siteConfig.footer || {};
-const config = useRuntimeConfig();
 const quote = ref("");
 const from = ref("");
 const fromWho = ref("");
@@ -98,21 +96,22 @@ const fetchHitokoto = async () => {
 
 const fetchStats = async () => {
   try {
-    if (!siteConfig.umami?.apiBase || !siteConfig.umami?.websiteId) {
+    if (!siteConfig.umami?.apiEndpoint || !siteConfig.umami?.websiteId) {
       return;
     }
-    const apiBase = siteConfig.umami.apiBase;
+    const apiEndpoint = siteConfig.umami.apiEndpoint;
     const websiteId = siteConfig.umami.websiteId;
-    const apiKey = config.public.umamiApiKey;
+    const apiKey = siteConfig.umami.apiKey;
 
     if (!apiKey) return;
 
     // 获取统计数据
+
+    const startAt = new Date(siteConfig.siteMeta.startTime);
     const endAt = Date.now();
-    const startAt = new Date(siteConfig.siteMeta.startDate).getTime();
 
     const resp = await fetch(
-      `${apiBase}/v1/websites/${websiteId}/stats?startAt=${startAt}&endAt=${endAt}`,
+      `${apiEndpoint}/v1/websites/${websiteId}/stats?startAt=${startAt}&endAt=${endAt}`,
       {
         headers: {
           Authorization: `Bearer ${apiKey}`,

@@ -8,6 +8,7 @@ const siteConfig = {
     email: "i@rhen.cloud",
     lang: "zh-CN",
     favicon: "/favicon.svg",
+    startTime: "2025-10-01",
   },
 
   hero: {
@@ -75,10 +76,11 @@ const siteConfig = {
   },
 
   umami: {
-    enable: false,
-    url: "https://cloud.umami.is/script.js",
-    websiteId: "ddcd51c3-ccc7-45e4-81e6-11567027f69b",
-    apiBase: "https://api.umami.is",
+    enable: true,
+    scriptUrl: "https://cloud.umami.is/script.js",
+    apiKey: "api_MGcpRPYMcBmTKZOKdUVpr7mlBoWkck5g",
+    websiteId: "b33dfd14-7e62-498b-a199-de0ac38a1d44",
+    apiEndpoint: "https://api.umami.is",
   },
 };
 
