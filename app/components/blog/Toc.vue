@@ -1,14 +1,13 @@
 <script setup lang="ts">
-const { path } = useRoute();
-const articles = await queryCollection("content").path(path).first();
-
 interface TocLink {
   id: string;
   text: string;
   children?: TocLink[];
 }
 
-const links = (articles?.body?.toc?.links || []) as TocLink[];
+const props = defineProps<{
+  links: TocLink[];
+}>();
 
 const activeId = ref("");
 
@@ -35,7 +34,7 @@ onMounted(() => {
     { rootMargin: "-100px 0% -80% 0%" },
   );
 
-  flattenLinks(links).forEach((link) => {
+  flattenLinks(props.links).forEach((link) => {
     const el = document.getElementById(link.id);
     if (el) observer.observe(el);
   });
@@ -45,16 +44,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="lg:col-span-4 sticky top-28 h-fit hidden lg:block">
+  <div class="w-full lg:w-1/3 hidden lg:block sticky top-28">
     <div
-      class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md border border-white/20 dark:border-white/5 p-6 rounded-3xl shadow-sm">
+      class="h-fit max-h-[calc(100vh-8rem)] overflow-y-auto bg-white/40 dark:bg-slate-900/40 backdrop-blur-md border border-white/20 dark:border-white/5 p-6 rounded-3xl shadow-sm">
       <h3
         class="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4 flex items-center gap-2">
         <Icon name="heroicons:list-bullet" class="w-4 h-4" />
         Table Of Content
       </h3>
       <nav class="space-y-1">
-        <template v-for="link in links" :key="link.id">
+        <template v-for="link in props.links" :key="link.id">
           <NuxtLink
             :to="`#${link.id}`"
             class="block text-sm py-1.5 px-3 rounded-xl transition-all duration-200"

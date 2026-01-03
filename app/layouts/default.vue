@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="font-spacegrotesk relative min-h-screen overflow-x-hidden flex flex-col">
+  <div class="font-spacegrotesk relative min-h-screen flex flex-col">
     <MainHeader />
     <main class="flex-1">
       <slot />

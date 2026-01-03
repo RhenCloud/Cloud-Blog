@@ -43,8 +43,9 @@ useHead({
 </script>
 
 <template>
-  <div class="px-4 md:px-6 container max-w-6xl mx-auto sm:grid grid-cols-12 gap-x-12">
-    <div class="col-span-12 lg:col-span-8">
+  <div
+    class="px-4 md:px-6 container max-w-6xl mx-auto flex flex-col lg:flex-row gap-12 items-start">
+    <div class="w-full" :class="{ 'lg:w-2/3': articles?.body?.toc?.links?.length }">
       <BlogHeader
         :title="data.title"
         :image="data.image"
@@ -66,6 +67,6 @@ useHead({
     </div>
 
     <!-- 侧边目录 -->
-    <BlogToc />
+    <BlogToc v-if="articles?.body?.toc?.links?.length" :links="articles.body.toc.links" />
   </div>
 </template>
