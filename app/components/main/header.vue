@@ -173,7 +173,7 @@ watch(
               <li v-for="link in siteConfig.navbar.links" :key="link.path">
                 <NuxtLink
                   :to="link.path"
-                  class="relative h-12 px-6 rounded-full transition-all duration-200 flex items-center text-zinc-700 dark:text-zinc-200"
+                  class="relative h-12 px-3 rounded-full transition-all duration-200 flex items-center text-zinc-700 dark:text-zinc-200"
                   :class="{
                     'bg-white dark:bg-slate-800 shadow-sm font-bold': isActive(link.path),
                     'hover:bg-zinc-100 dark:hover:bg-white/10': !isActive(link.path),
@@ -343,5 +343,98 @@ watch(
 
 .icon-svg.opacity-0 {
   pointer-events: none;
+}
+
+/* 调整顶栏logo和主题切换键距离屏幕两端的距离 */
+header .absolute.left-0 {
+  margin-left: -15px; /* 减小左侧距离 */
+}
+
+header .absolute.right-0 {
+  margin-right: -15px; /* 减小右侧距离 */
+}
+
+/* 强制显示桌面端navbar，隐藏移动端 */
+@media (min-width: 769px) and (max-width: 1023px) {
+  /* 显示桌面端navbar，隐藏移动端 */
+  .hidden.lg\:flex.items-center.justify-center.w-full.relative.h-14 {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .lg\:hidden {
+    display: none !important;
+  }
+  /* logo和右侧按钮绝对定位，navbar居中 */
+  header .absolute.left-0 {
+    position: absolute !important;
+    left: 0.5rem !important;
+    margin-left: 0 !important;
+    z-index: 10;
+    height: 2.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  header .absolute.left-0 .h-14 {
+    height: 2.5rem !important;
+    min-width: 2.5rem !important;
+    width: auto !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  header .absolute.left-0 .h-12 {
+    height: 2.5rem !important;
+    font-size: 1rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  header .absolute.right-0 {
+    position: absolute !important;
+    right: 0.5rem !important;
+    margin-right: 0 !important;
+    z-index: 10;
+  }
+  /* 缩小主题切换和线路按钮尺寸 */
+  header .absolute.right-0 .h-14,
+  header .absolute.right-0 .w-14 {
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+  }
+  header .absolute.right-0 .gap-3 {
+    gap: 0.5rem !important;
+  }
+  /* navbar最大宽度，居中显示 */
+  .inline-flex.items-center.h-14 {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    height: 2.5rem !important;
+    border-radius: 1.5rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    min-width: 0;
+    max-width: 700px !important;
+    justify-content: center !important;
+  }
+  /* 缩小ul间距和字体 */
+  .inline-flex.items-center.h-14 ul.flex.items-center.space-x-1\.5.text-lg {
+    gap: 0.25rem !important;
+    font-size: 1rem !important;
+  }
+  /* 缩小每个链接的padding和高度 */
+  .inline-flex.items-center.h-14 ul.flex.items-center li .h-12 {
+    height: 2rem !important;
+  }
+  .inline-flex.items-center.h-14 ul.flex.items-center li .px-3 {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  /* 缩小图标和文字间距 */
+  .inline-flex.items-center.h-14 ul.flex.items-center li .mr-2 {
+    margin-right: 0.25rem !important;
+  }
 }
 </style>

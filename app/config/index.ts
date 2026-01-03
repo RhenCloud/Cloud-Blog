@@ -39,10 +39,10 @@ const siteConfig = {
   navbar: {
     links: [
       // { name: "Home", path: "/", icon: "fa6-solid:house" },
-      { name: "Archive", path: "/archive", icon: "fa-solid:newspaper" },
-      { name: "Categories", path: "/categories", icon: "fa-solid:folder" },
-      { name: "Tags", path: "/tags", icon: "fa-solid:tags" },
-      { name: "About", path: "/about", icon: "fa-solid:user" },
+      { name: "归档", path: "/archive", icon: "fa-solid:newspaper" },
+      { name: "分类", path: "/categories", icon: "fa-solid:folder" },
+      { name: "标签", path: "/tags", icon: "fa-solid:tags" },
+      { name: "关于", path: "/about", icon: "fa-solid:user" },
     ],
   },
 
@@ -59,9 +59,9 @@ const siteConfig = {
   },
 
   footer: {
-    beian: "津ICP备2025039003号-1",
+    beian: "津ICP备2025039003号-2",
     beianLink: "https://beian.miit.gov.cn/",
-    customHtml: '<span style="opacity:.8">© 2025 <a href="https://rhen.cloud">RhenCloud</a></span>',
+    customHtml: "",
     hitokoto: {
       enable: true,
       type: "a&b&c&d&j",

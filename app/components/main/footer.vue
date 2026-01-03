@@ -15,8 +15,8 @@
     <!-- 备案信息 -->
     <p v-if="contact?.beian" class="text-text-muted text-xs m-0">
       <NuxtLink
-        :to="contact.beianLink || '/'"
-        class="opacity-85 transition-all duration-200 hover:text-primary hover:opacity-100">
+        :to="contact.beianLink || 'https://beian.miit.gov.cn/'"
+        class="opacity-85 transition-all duration-200 hover:text-accent hover:opacity-100">
         {{ contact.beian }}
       </NuxtLink>
     </p>
@@ -47,6 +47,13 @@
         class="text-primary hover:text-accent transition-colors"
         >Vue 3</a
       >
+    </p>
+
+    <p>
+      © {{ new Date(siteConfig.siteMeta.startTime).getFullYear() }}-{{ new Date().getFullYear() }}
+      {{ siteConfig.siteMeta.author }} |
+      <NuxtLink to="/rss.xml" class="text-primary">RSS</NuxtLink> |
+      <NuxtLink to="/sitemap.xml" class="text-primary">Sitemap</NuxtLink>.
     </p>
 
     <!-- eslint-disable-next-line vue/no-v-html -->
