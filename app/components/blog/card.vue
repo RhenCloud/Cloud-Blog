@@ -16,9 +16,9 @@ withDefaults(defineProps<Props>(), {
   title: "no-title",
   date: "no-date",
   description: "no-description",
-  image: "/blogs-img/blog.jpg",
+  image: getRandomFallbackImage(),
   alt: "no-alt",
-  ogImage: "/blogs-img/blog.jpg",
+  ogImage: getRandomFallbackImage(),
   tags: () => [],
   categories: () => [],
   published: false,
@@ -35,10 +35,10 @@ withDefaults(defineProps<Props>(), {
           :src="image"
           :alt="alt" />
       </div>
-      <div class="px-5 py-5 flex flex-col flex-grow">
+      <div class="px-5 py-5 flex flex-col grow">
         <div class="flex items-center justify-between mb-3">
           <div
-            class="flex items-center text-sm font-medium text-zinc-500 dark:text-zinc-400 whitespace-nowrap flex-shrink-0">
+            class="flex items-center text-sm font-medium text-zinc-500 dark:text-zinc-400 whitespace-nowrap shrink-0">
             <Icon name="mdi:calendar" class="mr-1.5 opacity-70 w-4 h-4" />
             {{ date }}
           </div>

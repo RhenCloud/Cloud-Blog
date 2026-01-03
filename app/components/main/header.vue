@@ -17,6 +17,12 @@ function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value;
 }
 
+// 移动端子菜单展开状态
+const mobileOpen = ref<Record<string, boolean>>({});
+function toggleMobileSubmenu(path: string) {
+  mobileOpen.value[path] = !mobileOpen.value[path];
+}
+
 const isLinesOpen = ref(false);
 function toggleLines() {
   isLinesOpen.value = !isLinesOpen.value;
@@ -66,6 +72,8 @@ watch(
   () => {
     isMenuOpen.value = false;
     isLinesOpen.value = false;
+    // 关闭所有移动端子菜单
+    mobileOpen.value = {};
   },
 );
 </script>
@@ -170,22 +178,56 @@ watch(
           <div
             class="inline-flex items-center h-14 bg-white/70 dark:bg-slate-900/50 backdrop-blur-xl shadow-[0_4px_20px_-2px_rgba(0,0,0,0.1)] border border-zinc-200/50 dark:border-white/5 rounded-full px-1.5 transition-all duration-300 hover:shadow-xl">
             <ul class="flex items-center space-x-1.5 text-lg">
-              <li v-for="link in siteConfig.navbar.links" :key="link.path">
-                <NuxtLink
-                  :to="link.path"
-                  class="relative h-12 px-3 rounded-full transition-all duration-200 flex items-center text-zinc-700 dark:text-zinc-200"
-                  :class="{
-                    'bg-white dark:bg-slate-800 shadow-sm font-bold': isActive(link.path),
-                    'hover:bg-zinc-100 dark:hover:bg-white/10': !isActive(link.path),
-                  }">
-                  <Icon
-                    v-if="link.icon"
-                    :name="link.icon"
-                    size="20"
-                    class="mr-2 flex items-center" />
-                  <span>{{ link.name }}</span>
-                </NuxtLink>
-              </li>
+              <template v-for="link in siteConfig.navbar.links" :key="link.path">
+                <li v-if="!link.children">
+                  <NuxtLink
+                    :to="link.path"
+                    class="relative h-12 px-3 rounded-full transition-all duration-200 flex items-center text-zinc-700 dark:text-zinc-200"
+                    :class="{
+                      'bg-white dark:bg-slate-800 shadow-sm font-bold': isActive(link.path),
+                      'hover:bg-zinc-100 dark:hover:bg-white/10': !isActive(link.path),
+                    }">
+                    <Icon
+                      v-if="link.icon"
+                      :name="link.icon"
+                      size="20"
+                      class="mr-2 flex items-center" />
+                    <span>{{ link.name }}</span>
+                  </NuxtLink>
+                </li>
+                <li v-else class="relative group">
+                  <div
+                    class="relative h-12 px-3 rounded-full transition-all duration-200 flex items-center cursor-pointer text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-white/10"
+                    :class="{
+                      'bg-white dark:bg-slate-800 shadow-sm font-bold': isActive(link.path),
+                    }">
+                    <Icon
+                      v-if="link.icon"
+                      :name="link.icon"
+                      size="20"
+                      class="mr-2 flex items-center" />
+                    <span>{{ link.name }}</span>
+                    <Icon name="fa6-solid:chevron-down" size="14" class="ml-1 opacity-60" />
+                  </div>
+                  <ul
+                    class="absolute left-0 top-full mt-0 min-w-32 bg-white dark:bg-slate-900 border border-zinc-200/50 dark:border-white/10 rounded-xl shadow-lg z-50 hidden group-hover:block hover:block pointer-events-auto">
+                    <li v-for="child in link.children" :key="child.path">
+                      <NuxtLink
+                        :to="child.path"
+                        class="block px-4 py-2 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-white/10 rounded-xl transition-colors">
+                        <div class="flex items-center gap-2">
+                          <Icon
+                            v-if="child.icon"
+                            :name="child.icon"
+                            size="14"
+                            class="mr-2 opacity-60" />
+                          <span>{{ child.name }}</span>
+                        </div>
+                      </NuxtLink>
+                    </li>
+                  </ul>
+                </li>
+              </template>
             </ul>
           </div>
 
@@ -280,26 +322,80 @@ watch(
             <div class="p-2">
               <ul class="space-y-1">
                 <li v-for="link in siteConfig.navbar.links" :key="link.path">
-                  <NuxtLink
-                    :to="link.path"
-                    class="flex items-center justify-between px-4 py-3.5 rounded-2xl text-zinc-700 dark:text-zinc-200 transition-all active:scale-[0.98]"
-                    :class="
-                      isActive(link.path)
-                        ? 'bg-violet-500/10 text-violet-600 dark:text-violet-400 font-bold'
-                        : 'hover:bg-zinc-100 dark:hover:bg-white/5'
-                    ">
-                    <div class="flex items-center gap-3">
-                      <div
-                        class="w-8 h-8 rounded-xl flex items-center justify-center transition-colors"
-                        :class="
-                          isActive(link.path) ? 'bg-violet-500/20' : 'bg-zinc-100 dark:bg-white/5'
-                        ">
-                        <Icon v-if="link.icon" :name="link.icon" size="16" />
+                  <template v-if="!link.children">
+                    <NuxtLink
+                      :to="link.path"
+                      class="flex items-center justify-between px-4 py-3.5 rounded-2xl text-zinc-700 dark:text-zinc-200 transition-all active:scale-[0.98]"
+                      :class="
+                        isActive(link.path)
+                          ? 'bg-violet-500/10 text-violet-600 dark:text-violet-400 font-bold'
+                          : 'hover:bg-zinc-100 dark:hover:bg-white/5'
+                      "
+                      @click="isMenuOpen = false">
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-8 h-8 rounded-xl flex items-center justify-center transition-colors"
+                          :class="
+                            isActive(link.path) ? 'bg-violet-500/20' : 'bg-zinc-100 dark:bg-white/5'
+                          ">
+                          <Icon v-if="link.icon" :name="link.icon" size="16" />
+                        </div>
+                        <span class="text-sm">{{ link.name }}</span>
                       </div>
-                      <span class="text-sm">{{ link.name }}</span>
+                      <Icon name="fa6-solid:chevron-right" size="10" class="opacity-30" />
+                    </NuxtLink>
+                  </template>
+
+                  <template v-else>
+                    <div
+                      class="flex items-center justify-between px-4 py-3.5 rounded-2xl text-zinc-700 dark:text-zinc-200 transition-all active:scale-[0.98]"
+                      :class="
+                        isActive(link.path)
+                          ? 'bg-violet-500/10 text-violet-600 dark:text-violet-400 font-bold'
+                          : 'hover:bg-zinc-100 dark:hover:bg-white/5'
+                      "
+                      @click="toggleMobileSubmenu(link.path)">
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-8 h-8 rounded-xl flex items-center justify-center transition-colors"
+                          :class="
+                            isActive(link.path) ? 'bg-violet-500/20' : 'bg-zinc-100 dark:bg-white/5'
+                          ">
+                          <Icon v-if="link.icon" :name="link.icon" size="16" />
+                        </div>
+                        <span class="text-sm">{{ link.name }}</span>
+                      </div>
+                      <Icon
+                        name="fa6-solid:chevron-right"
+                        size="10"
+                        :class="[
+                          'opacity-30 transition-transform',
+                          mobileOpen[link.path] ? 'rotate-90' : '',
+                        ]" />
                     </div>
-                    <Icon name="fa6-solid:chevron-right" size="10" class="opacity-30" />
-                  </NuxtLink>
+
+                    <transition
+                      enter-active-class="transition duration-200"
+                      leave-active-class="transition duration-150">
+                      <ul v-if="mobileOpen[link.path]" class="pl-12 pr-3 pb-2 pt-2 space-y-1">
+                        <li v-for="child in link.children" :key="child.path">
+                          <NuxtLink
+                            :to="child.path"
+                            class="block px-3 py-2 rounded-lg text-sm text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-white/5"
+                            @click="isMenuOpen = false">
+                            <div class="flex items-center gap-2">
+                              <Icon
+                                v-if="child.icon"
+                                :name="child.icon"
+                                size="14"
+                                class="mr-2 opacity-60" />
+                              <span>{{ child.name }}</span>
+                            </div>
+                          </NuxtLink>
+                        </li>
+                      </ul>
+                    </transition>
+                  </template>
                 </li>
               </ul>
             </div>
@@ -436,5 +532,34 @@ header .absolute.right-0 {
   .inline-flex.items-center.h-14 ul.flex.items-center li .mr-2 {
     margin-right: 0.25rem !important;
   }
+}
+
+/* 解决 navbar 子菜单 hover 闪烁问题，提升可用性 */
+.navbar-dropdown-group {
+  position: relative;
+}
+.navbar-dropdown-toggle {
+  cursor: pointer;
+}
+.navbar-dropdown-list {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 0.5rem;
+  min-width: 8rem;
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.18);
+  z-index: 50;
+  border: 1px solid rgba(200, 200, 200, 0.15);
+}
+.dark .navbar-dropdown-list {
+  background: #18181b;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.navbar-dropdown-group:hover .navbar-dropdown-list,
+.navbar-dropdown-list:hover {
+  display: block;
 }
 </style>

@@ -40,7 +40,15 @@ const siteConfig = {
     links: [
       // { name: "Home", path: "/", icon: "fa6-solid:house" },
       { name: "归档", path: "/archive", icon: "fa-solid:newspaper" },
-      { name: "分类", path: "/categories", icon: "fa-solid:folder" },
+      {
+        name: "分类",
+        path: "/categories",
+        icon: "fa-solid:folder",
+        // children: [
+        //   { name: "前端", path: "/categories/frontend", icon: "fa-solid:code" },
+        //   { name: "后端", path: "/categories/backend", icon: "fa-solid:server" },
+        // ],
+      },
       { name: "标签", path: "/tags", icon: "fa-solid:tags" },
       { name: "关于", path: "/about", icon: "fa-solid:user" },
     ],
