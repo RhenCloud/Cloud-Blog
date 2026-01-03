@@ -158,7 +158,7 @@ const siteConfig = {
     favicon: "/favicon.svg",
   },
   // ... 其他配置
-}
+};
 ```
 
 ### 评论系统
@@ -195,16 +195,16 @@ published: true
 
 ### Front Matter 字段说明
 
-| 字段 | 类型 | 说明 |
-| ------ | ------ | ------ |
-| `title` | string | 文章标题 |
-| `description` | string | 文章描述 |
-| `date` | string | 发布日期 (YYYY-MM-DD) |
-| `image` | string | 文章封面图 |
-| `alt` | string | 图片描述 |
-| `tags` | array | 文章标签 |
-| `categories` | array | 文章分类 |
-| `published` | boolean | 是否发布 |
+| 字段          | 类型    | 说明                  |
+| ------------- | ------- | --------------------- |
+| `title`       | string  | 文章标题              |
+| `description` | string  | 文章描述              |
+| `date`        | string  | 发布日期 (YYYY-MM-DD) |
+| `image`       | string  | 文章封面图            |
+| `alt`         | string  | 图片描述              |
+| `tags`        | array   | 文章标签              |
+| `categories`  | array   | 文章分类              |
+| `published`   | boolean | 是否发布              |
 
 ## 🎨 自定义样式
 

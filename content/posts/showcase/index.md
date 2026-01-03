@@ -6,7 +6,7 @@ updatedDate: 2025-12-31
 description: "一篇演示文档，展示站点可用的组件、标记和布局用法，方便检视和测试。"
 image: https://img.rhen.cloud/file/Blog/1761401028478_PixPin_2025-10-03_15-44-52.png
 alt: "示例展示"
-tags: ["Demo","Showcase","Components"]
+tags: ["Demo", "Showcase", "Components"]
 categories: ["Development"]
 ---
 
@@ -97,10 +97,10 @@ hello()
 
 表格示例：
 
-| 名称 | 描述 |
-| --- | --- |
-| GithubCard | 渲染仓库信息 |
-| Warning | 显示警告/提示 |
+| 名称       | 描述          |
+| ---------- | ------------- |
+| GithubCard | 渲染仓库信息  |
+| Warning    | 显示警告/提示 |
 
 ## 结语
 
