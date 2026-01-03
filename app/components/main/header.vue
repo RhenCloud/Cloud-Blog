@@ -112,10 +112,10 @@ watch(
                   v-if="isLinesOpen"
                   class="absolute top-full right-0 mt-2 w-32 overflow-hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-zinc-200/60 dark:border-white/10 rounded-2xl shadow-xl z-50">
                   <div class="p-1">
-                    <a
+                    <NuxtLink
                       v-for="line in siteConfig.lines"
                       :key="line.url"
-                      :href="line.url"
+                      :to="line.url + route.path"
                       class="flex items-center justify-between px-3 py-2 rounded-xl text-sm text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
                       @click="isLinesOpen = false">
                       <span>{{ line.name }}</span>
@@ -129,7 +129,7 @@ watch(
                             : linePings[line.url]
                         }}
                       </span>
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </transition>
@@ -253,10 +253,10 @@ watch(
                   v-if="isLinesOpen"
                   class="absolute top-full right-0 mt-3 w-36 overflow-hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-zinc-200/60 dark:border-white/10 rounded-2xl shadow-2xl z-50">
                   <div class="p-1.5">
-                    <a
+                    <NuxtLink
                       v-for="line in siteConfig.lines"
                       :key="line.url"
-                      :href="line.url"
+                      :to="line.url + route.path"
                       class="flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
                       @click="isLinesOpen = false">
                       <div class="flex items-center">
@@ -273,7 +273,7 @@ watch(
                             : linePings[line.url]
                         }}
                       </span>
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </transition>
