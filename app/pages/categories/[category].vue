@@ -27,7 +27,7 @@ const formattedData = computed(() => {
           path: articles.path,
           title: articles.title || "no-title available",
           description: articles.description || "no-description available",
-          image: articles.image || "/blogs-img/blog.jpg",
+          image: articles.image || getRandomFallbackImage(),
           alt: articles.alt || "no alter data available",
           date: articles.date || "not-date-available",
           tags: articles.tags || [],
@@ -39,7 +39,7 @@ const formattedData = computed(() => {
 });
 
 useHead({
-  title: category.value,
+  title: `Category: ${category.value}`,
   meta: [
     {
       name: "description",

@@ -1,4 +1,6 @@
-const siteConfig = {
+import type { SiteConfig } from "~/types/nav";
+
+const siteConfig: SiteConfig = {
   siteMeta: {
     title: "RhenCloud's Blog",
     description: "一个普普通通的技术博客，分享技术，记录日常，传递一些有趣的想法。",

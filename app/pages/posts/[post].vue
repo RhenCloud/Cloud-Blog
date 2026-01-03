@@ -28,9 +28,9 @@ const data = computed<BlogPost>(() => {
 });
 
 useHead({
-  title: siteConfig.siteMeta.title || "",
+  title: `${data.value.title} - ${siteConfig.siteMeta.title}`,
   meta: [
-    { name: "description", content: siteConfig.siteMeta.description },
+    { name: "description", content: data.value.description },
     { name: "author", content: siteConfig.siteMeta.author },
   ],
   link: [

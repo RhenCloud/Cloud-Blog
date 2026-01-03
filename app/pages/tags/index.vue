@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import siteConfig from "~/config";
-
 const { data } = await useAsyncData("all-blog-post-by-tags", () =>
   queryCollection("content").select("path", "tags").where("published", "=", true).all(),
 );
@@ -20,7 +18,7 @@ data.value?.forEach((blog) => {
 });
 
 useHead({
-  title: `${siteConfig.siteMeta.title} - Tags`,
+  title: "Tags",
   meta: [
     {
       name: "description",

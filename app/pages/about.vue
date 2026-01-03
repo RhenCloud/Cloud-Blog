@@ -1,9 +1,18 @@
 <script setup>
 import { useRoute } from "vue-router";
 import TechInfo from "~/components/main/TechInfo.vue";
+import siteConfig from "~/config";
 
 const route = useRoute();
 const { data: content } = await useAsyncData(route.path, () => queryCollection("about").first());
+
+useHead({
+  title: `About - ${siteConfig.siteMeta.title}`,
+  meta: [
+    { name: "description", content: siteConfig.siteMeta.description },
+    { name: "author", content: siteConfig.siteMeta.author },
+  ],
+});
 </script>
 
 <template>
