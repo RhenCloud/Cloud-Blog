@@ -51,6 +51,7 @@ export default defineNuxtConfig({
         { name: "language", content: "zh-CN" },
         { name: "theme-color", content: siteConfig.theme?.color },
         { name: "description", content: siteConfig.siteMeta.description },
+        { name: "keywords", content: siteConfig.siteMeta.keywords?.join(",") },
       ],
       link: [
         { rel: "icon", href: siteConfig.siteMeta.favicon, type: "image/svg+xml" },
@@ -70,6 +71,7 @@ export default defineNuxtConfig({
   sitemap: {
     sitemapsPathPrefix: "/",
     autoLastmod: true,
+    zeroRuntime: true,
     sitemaps: {
       posts: {
         sources: ["/api/__sitemap__/urls"],
