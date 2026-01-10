@@ -58,6 +58,7 @@ export default defineNuxtConfig({
         { rel: "alternate", hreflang: siteConfig.siteMeta.lang, href: siteConfig.siteMeta.url },
         { rel: "dns-prefetch", href: siteConfig.siteMeta.url },
         { rel: "preconnect", href: siteConfig.siteMeta.url },
+        { rel: "stylesheet", href: "/fonts/521/main/result.css" },
       ],
     },
     pageTransition: { name: "page", mode: "out-in" },
