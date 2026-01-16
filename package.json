@@ -40,9 +40,9 @@
     "twikoo": "^1.6.44",
     "typed.js": "^2.1.0",
     "vue": "3.5.26",
-    "pg": "^8.10.0",
+    "pg": "^8.17.1",
     "bcryptjs": "^3.0.3",
-    "jsonwebtoken": "^9.0.0"
+    "jsonwebtoken": "^9.0.3"
   },
   "devDependencies": {
     "@iconify-json/fa": "1.2.2",
@@ -55,7 +55,7 @@
     "@iconify-json/noto": "1.2.7",
     "@iconify-json/simple-icons": "1.2.63",
     "@iconify-json/svg-spinners": "1.2.4",
-    "@iconify-json/vscode-icons": "^1.2.37",
+    "@iconify-json/vscode-icons": "^1.2.39",
     "@nuxt-themes/typography": "^1.0.1",
     "@nuxt/eslint": "1.12.1",
     "@tailwindcss/forms": "0.5.11",

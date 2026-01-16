@@ -25,7 +25,6 @@
 
     <div v-if="adStats && ads.length">
       <template v-for="ad in ads" :key="ad.link">
-        <!-- eslint-disable-next-line vue/no-v-html -->
         <NuxtLink
           :to="ad.link"
           :external="isExternal(ad.link)"

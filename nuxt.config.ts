@@ -1,12 +1,9 @@
 import siteConfig from "./app/config";
 import tailwindcss from "@tailwindcss/vite";
-// https://nuxt.com/docs/api/configuration/nuxt-config
-
-// const sitemapApiUrl = `${siteConfig.siteMeta.url}/api/__sitemap__/urls`;
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-12-20",
-  srcDir: "app",
+  srcDir: "app/",
   css: ["./app/assets/css/main.css"],
 
   site: {
