@@ -22,6 +22,7 @@ export default defineNuxtConfig({
     "@nuxt/fonts",
     "@nuxt/eslint",
     "@vueuse/nuxt",
+    // removed @nuxtjs/supabase (using custom pg auth and APIs)
     "@nuxtjs/robots",
     // "@nuxtjs/seo",
     "@nuxtjs/sitemap",
@@ -94,6 +95,14 @@ export default defineNuxtConfig({
 
   typescript: {
     strict: true,
+  },
+
+  runtimeConfig: {
+    public: {},
+    // Private server-only settings
+    databaseUrl: process.env.DATABASE_URL || "",
+    jwtSecret: process.env.JWT_SECRET || "",
+    // legacy supabase service role no longer used
   },
 
   postcss: {

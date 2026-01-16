@@ -39,7 +39,10 @@
     "nuxt-umami": "3.2.1",
     "twikoo": "^1.6.44",
     "typed.js": "^2.1.0",
-    "vue": "3.5.26"
+    "vue": "3.5.26",
+    "pg": "^8.10.0",
+    "bcryptjs": "^3.0.3",
+    "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
     "@iconify-json/fa": "1.2.2",

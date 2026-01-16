@@ -78,6 +78,11 @@ export interface UmamiConfig {
   apiEndpoint?: string;
 }
 
+export interface AdConfig {
+  enable?: boolean;
+  ads?: [{ text?: string; link?: string; img?: string }];
+}
+
 export interface SiteConfig {
   siteMeta: SiteMeta;
   hero: Hero;
@@ -91,4 +96,5 @@ export interface SiteConfig {
   footer?: Footer;
   comment?: CommentConfig;
   umami?: UmamiConfig;
+  ad?: AdConfig;
 }

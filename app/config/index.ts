@@ -92,6 +92,16 @@ const siteConfig: SiteConfig = {
     websiteId: "b33dfd14-7e62-498b-a199-de0ac38a1d44",
     apiEndpoint: "https://api.umami.is",
   },
-};
 
+  ad: {
+    enable: true,
+    ads: [
+      {
+        text: "本网站由{{img}}提供云存储服务",
+        link: "https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral",
+        img: "/ads/upyun.png",
+      },
+    ],
+  },
+};
 export default siteConfig;
