@@ -15,7 +15,7 @@ const techStack = computed(() => {
     { label: "文章许可", value: "CC BY-NC-SA 4.0", icon: "fa-brands:creative-commons" },
     {
       label: "规范域名",
-      value: siteConfig.siteMeta.url.replace("https://", ""),
+      value: siteConfig.siteMeta.url?.replace("https://", ""),
       icon: "heroicons:globe-alt",
     },
   ];

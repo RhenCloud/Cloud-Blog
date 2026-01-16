@@ -12,6 +12,8 @@ export default defineEventHandler(async () => {
     platform = { name: "Cloudflare", icon: "simple-icons:cloudflare" };
   } else if (process.env.EDGEONE) {
     platform = { name: "Tencent EdgeOne", icon: "simple-icons:tencentcloud" };
+  } else if (process.env.ESA) {
+    platform = { name: "Aliyun ESA", icon: "simple-icons:alibabacloud" };
   }
 
   const deps = pkg.dependencies as Record<string, string> | undefined;
