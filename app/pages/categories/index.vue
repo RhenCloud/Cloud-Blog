@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import siteConfig from "~/config";
+const { path } = useRoute();
+
 const { data } = await useAsyncData("all-blog-post-by-category", () =>
   queryCollection("content").select("path", "categories").where("published", "=", true).all(),
 );
@@ -18,11 +21,17 @@ data.value?.forEach((blog) => {
 });
 
 useHead({
-  title: "Categories",
+  title: `Categories - ${siteConfig.siteMeta.title}`,
   meta: [
     {
       name: "description",
       content: "以下列出了我撰写的文章主题。",
+    },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: `${siteConfig.siteMeta.url}/${path}`,
     },
   ],
 });

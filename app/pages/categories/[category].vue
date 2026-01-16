@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import siteConfig from "~/config";
+
 // import type { BlogPost } from "@/types/blog";
 const route = useRoute();
 
@@ -39,11 +41,17 @@ const formattedData = computed(() => {
 });
 
 useHead({
-  title: `Category: ${category.value}`,
+  title: `Category -${siteConfig} ${category.value}`,
   meta: [
     {
       name: "description",
-      content: `You will find all the ${category.value} related post here`,
+      content: `你可以在这里找到所有关于 ${category.value} 的文章。`,
+    },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: `${siteConfig.siteMeta.url}/${route.path}`,
     },
   ],
 });

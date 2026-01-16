@@ -1,13 +1,21 @@
 <script lang="ts" setup>
 import Fuse from "fuse.js";
 import { formatDate } from "~/utils/helper";
+import siteConfig from "~/config";
+const { path } = useRoute();
 
 useHead({
-  title: "Archive",
+  title: `Archive - ${siteConfig.siteMeta.title}`,
   meta: [
     {
       name: "description",
       content: "浏览所有已发布的文章，轻松找到您感兴趣的内容。",
+    },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: `${siteConfig.siteMeta.url}/${path}`,
     },
   ],
 });

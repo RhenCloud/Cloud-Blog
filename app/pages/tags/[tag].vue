@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import siteConfig from "~/config";
 const route = useRoute();
 
 const tag = computed(() => {
@@ -40,11 +41,17 @@ const formattedData = computed(() => {
 });
 
 useHead({
-  title: `Tag: ${tag.value}`,
+  title: `Tag - ${siteConfig.siteMeta.title}: ${tag.value}`,
   meta: [
     {
       name: "description",
-      content: `Explore all posts tagged with ${tag.value}`,
+      content: `你可以在这里找到所有关于 ${tag.value} 的文章。`,
+    },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: `${siteConfig.siteMeta.url}/${route.path}`,
     },
   ],
 });

@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import siteConfig from "~/config";
+const { path } = useRoute();
+
 const { data } = await useAsyncData("all-blog-post-by-tags", () =>
   queryCollection("content").select("path", "tags").where("published", "=", true).all(),
 );
@@ -18,11 +21,17 @@ data.value?.forEach((blog) => {
 });
 
 useHead({
-  title: "Tags",
+  title: `Tags - ${siteConfig.siteMeta.title}`,
   meta: [
     {
       name: "description",
       content: "浏览所有我写过的文章的标签。",
+    },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: `${siteConfig.siteMeta.url}/${path}`,
     },
   ],
 });
