@@ -1,3 +1,5 @@
+<!-- eslint-disable vue/no-v-html -->
+<!-- eslint-disable vue/no-v-text-v-html-on-component -->
 <template>
   <footer
     class="text-center mt-auto w-full flex flex-col gap-2 py-8 px-4 border-t border-white/10 dark:border-white/5">
@@ -21,7 +23,20 @@
       </NuxtLink>
     </p>
 
-    <!-- 框架与技术栈信息 -->
+    <div v-if="adStats && ads.length">
+      <template v-for="ad in ads" :key="ad.link">
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <NuxtLink
+          :to="ad.link"
+          :external="isExternal(ad.link)"
+          :target="isExternal(ad.link) ? '_blank' : null"
+          rel="noreferrer"
+          class="text-text-muted text-sm m-0"
+          v-html="buildAdHtml(ad)">
+        </NuxtLink>
+      </template>
+    </div>
+
     <p class="text-text-muted text-xs m-0">
       Powered by
       <a
@@ -73,6 +88,9 @@ const visitors = ref(0);
 const statsError = ref(true);
 const showHitokoto = siteConfig.footer?.hitokoto?.enable;
 const showStats = ref(siteConfig.umami?.enable);
+
+const adStats = siteConfig.ad?.enable;
+const ads = siteConfig.ad?.ads || [];
 
 const buildHitokotoUrl = () => {
   const type = siteConfig.footer?.hitokoto?.type;
@@ -146,6 +164,17 @@ const fetchStats = async () => {
     statsError.value = true;
     console.debug("Stats fetch failed (this is normal if blocked by ad blocker):", e.message);
   }
+};
+
+const buildAdHtml = (ad) => {
+  if (!ad || !ad.text) return "";
+  const imgHtml = ad.img ? `<img src="${ad.img}" alt="" class="h-7 w-auto" loading="lazy" />` : "";
+  const content = ad.text.replace(/\{\{img\}\}/g, imgHtml);
+  return `<span class="inline-flex items-center gap-1">${content}</span>`;
+};
+
+const isExternal = (url) => {
+  return typeof url === "string" && /^https?:\/\//.test(url);
 };
 
 onMounted(() => {
