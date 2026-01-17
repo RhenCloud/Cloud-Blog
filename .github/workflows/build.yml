@@ -81,11 +81,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: generate-output-${{ steps.commit-hash.outputs.short }}
-          path: artifact
-
-      - name: List artifact contents
-        run: |
-          echo "Contents:" && ls -la artifact || true
+          path: dist
 
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
@@ -93,7 +89,6 @@ jobs:
       - name: Prepare deployment
         run: |
           bun install -g edgeone vercel wrangler
-          unzip artifact/generate-output-${{ steps.commit-hash.outputs.short }}.zip -d dist
 
       - name: Deploy to Vercel
         run: |
