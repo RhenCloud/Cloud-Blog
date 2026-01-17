@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - id: commit-hash
+        uses: prompt/actions-commit-hash@v3
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -40,7 +43,7 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build-output-${{ github.sha }}
+          name: build-output-${{ steps.commit-hash.outputs.short }}
           path: .output/public
           retention-days: 7
 
@@ -50,9 +53,17 @@ jobs:
       - name: Upload generate artifact
         uses: actions/upload-artifact@v4
         with:
-          name: generate-output-${{ github.sha }}
+          name: generate-output-${{ steps.commit-hash.outputs.short }}
           path: dist
           retention-days: 7
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.bun/install/cache
+          key: ${{ runner.os }}-build-${{ hashFiles('**/bun.lock') }}
 
   deploy:
     needs: build
@@ -60,13 +71,16 @@ jobs:
     if: ${{ github.event_name == 'push' }}
 
     steps:
+      - id: commit-hash
+        uses: prompt/actions-commit-hash@v3
+
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Download generate artifact
         uses: actions/download-artifact@v4
         with:
-          name: generate-output-${{ github.sha }}
+          name: generate-output-${{ steps.commit-hash.outputs.short }}
           path: artifact
 
       - name: List artifact contents
@@ -79,8 +93,8 @@ jobs:
       - name: Prepare deployment
         run: |
           bun install -g edgeone vercel wrangler
-          unzip artifact/generate-output-${{ github.sha }}.zip -d artifact/generate-output-${{ github.sha }}
-          cd artifact/generate-output-${{ github.sha }}
+          unzip artifact/generate-output-${{ steps.commit-hash.outputs.short }}.zip -d artifact/generate-output-${{ steps.commit-hash.outputs.short }}
+          cd artifact/generate-output-${{ steps.commit-hash.outputs.short }}
 
       - name: Deploy to Vercel
         run: |
