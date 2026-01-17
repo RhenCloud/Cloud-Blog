@@ -115,7 +115,7 @@ jobs:
           if [ -z "${{ secrets.EDGEONE_TOKEN }}" ] || [ -z "${{ env.EDGEONE_PROJECT_NAME }}" ]; then
             echo "Skipping EdgeOne deploy: missing EDGEONE_TOKEN or EDGEONE_PROJECT_NAME" && exit 0
           fi
-          edgeone pages deploy ./dist --token ${{ secrets.EDGEONE_TOKEN }} --name "${{ env.EDGEONE_PROJECT_NAME }}" || true
+          edgeone pages deploy ./dist --token ${{ secrets.EDGEONE_TOKEN }} --name "${{ env.EDGEONE_PROJECT_NAME }}"
 
   # deploy-cloudflare:
   #   needs: build
