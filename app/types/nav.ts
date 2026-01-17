@@ -80,7 +80,7 @@ export interface UmamiConfig {
 
 export interface AdConfig {
   enable?: boolean;
-  ads?: [{ text?: string; link?: string; img?: string }];
+  ads?: [{ body?: string; link?: string }];
 }
 
 export interface SiteConfig {

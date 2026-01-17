@@ -31,6 +31,9 @@ jobs:
       - name: Check Format
         run: bun run format
 
+      - name: Run Unit Tests
+        run: bun run test
+
       - name: Playgroud build check
         run: bun run build
 
@@ -38,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-output-${{ github.sha }}
-          path: .output
+          path: .output/public
           retention-days: 7
 
       - name: Playgroud generate check
@@ -50,3 +53,32 @@ jobs:
           name: generate-output-${{ github.sha }}
           path: dist
           retention-days: 7
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download generate artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: generate-output-${{ github.sha }}
+          path: artifact
+
+      - name: List artifact contents
+        run: |
+          echo "Contents:" && ls -la artifact || true
+
+      - name: Prepare deployment
+        run: |
+          bun install -g edgeone vercel wrangler
+          unzip artifact/generate-output-${{ github.sha }}.zip -d artifact/generate-output-${{ github.sha }}
+          cd artifact/generate-output-${{ github.sha }}
+
+      - name: Deploy to Vercel
+        run: |
+          vercel --token ${{ secrets.VERCEL_TOKEN }} --prod

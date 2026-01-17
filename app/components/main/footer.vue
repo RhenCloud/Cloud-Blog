@@ -25,13 +25,17 @@
 
     <div v-if="adStats && ads.length">
       <template v-for="ad in ads" :key="ad.link">
-        <NuxtLink
-          :to="ad.link"
-          :external="isExternal(ad.link)"
-          :target="isExternal(ad.link) ? '_blank' : null"
+        <a
+          v-if="isExternal(ad.link)"
+          :href="ad.link"
+          target="_blank"
           rel="noreferrer"
-          class="text-text-muted text-sm m-0"
-          v-html="buildAdHtml(ad)">
+          class="text-text-muted text-sm m-0">
+          <span v-html="ad.body"></span>
+        </a>
+
+        <NuxtLink v-else :to="ad.link" class="text-text-muted text-sm m-0">
+          <span v-html="ad.body"></span>
         </NuxtLink>
       </template>
     </div>
@@ -71,7 +75,7 @@
     </p>
 
     <!-- eslint-disable-next-line vue/no-v-html -->
-    <div v-if="contact?.customHtml" v-html="contact.customHtml" />
+    <div v-if="contact?.customHtml" v-html="contact.customHtml"></div>
   </footer>
 </template>
 
@@ -163,13 +167,6 @@ const fetchStats = async () => {
     statsError.value = true;
     console.debug("Stats fetch failed (this is normal if blocked by ad blocker):", e.message);
   }
-};
-
-const buildAdHtml = (ad) => {
-  if (!ad || !ad.text) return "";
-  const imgHtml = ad.img ? `<img src="${ad.img}" alt="" class="h-7 w-auto" loading="lazy" />` : "";
-  const content = ad.text.replace(/\{\{img\}\}/g, imgHtml);
-  return `<span class="inline-flex items-center gap-1">${content}</span>`;
 };
 
 const isExternal = (url) => {
