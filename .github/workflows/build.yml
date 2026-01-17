@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Build and Deploy
 
 on:
   push:
@@ -72,6 +72,9 @@ jobs:
       - name: List artifact contents
         run: |
           echo "Contents:" && ls -la artifact || true
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Prepare deployment
         run: |
