@@ -26,8 +26,8 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxtjs/color-mode",
     "@nuxt/ui",
-    "@formkit/auto-animate",
     // "nuxt-umami",
+    "@formkit/auto-animate",
   ],
 
   vite: {
@@ -147,5 +147,9 @@ export default defineNuxtConfig({
         },
       },
     },
+  },
+
+  experimental: {
+    buildCache: true,
   },
 });

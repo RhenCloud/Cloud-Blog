@@ -93,7 +93,12 @@ jobs:
       - name: Prepare deployment
         run: |
           bun install -g edgeone vercel wrangler
+          unzip artifact/generate-output-${{ steps.commit-hash.outputs.short }}.zip -d dist
 
       - name: Deploy to Vercel
         run: |
           vercel --token ${{ secrets.VERCEL_TOKEN }} --prod --yes
+
+      - name: Deploy to Edgeone
+        run: |
+          edgeone pages deploy ./dist --token ${{ secrets.EDGEONE_TOKEN }} --name ${{ env.EDGEONE_PROJECT_NAME }}
