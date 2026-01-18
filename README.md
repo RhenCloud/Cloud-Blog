@@ -2,6 +2,8 @@
 
 一个基于 Nuxt 3 + Vue 3 + Tailwind CSS 构建的现代化技术博客平台。
 
+[![Build and Deploy](https://github.com/RhenCloud/Cloud-Blog/actions/workflows/build.yml/badge.svg)](https://github.com/RhenCloud/Cloud-Blog/actions/workflows/build.yml)
+
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Node](https://img.shields.io/badge/Node-24.12.0-blue)
 ![Nuxt](https://img.shields.io/badge/Nuxt-4.2.2-brightgreen)
