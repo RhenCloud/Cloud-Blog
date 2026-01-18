@@ -27,7 +27,8 @@ const primaryRgb = hexToRgb(primaryColor);
 // proper head script entries to avoid inserting raw HTML into a script
 // element (which causes JS parse errors like "Unexpected token '<'").
 const traceRaw = siteConfig.traceConfig?.script || "";
-const traceScripts = [] as any[];
+type TraceScript = { src?: string; children?: string; type?: string };
+const traceScripts: TraceScript[] = [];
 if (typeof traceRaw === "string" && traceRaw.trim()) {
   // find all <script ... src="..."> tags and extract src
   const srcRegex = /<script[^>]*src=["']([^"']+)["'][^>]*>\s*<\/script>/gi;
