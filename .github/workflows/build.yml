@@ -9,6 +9,7 @@ on:
 
 env:
   EDGEONE_PROJECT_NAME: blog1
+  ESA_PROJECT_NAME: cloud-blog
   GIT_DATE: ${{ github.event.head_commit.timestamp || github.event.pusher.date }}
   GIT_SHA: ${{ github.event.head_commit.id || github.sha }}
 
@@ -77,6 +78,41 @@ jobs:
             node_modules
             ~/.bun/install/cache
           key: ${{ runner.os }}-build-${{ hashFiles('**/bun.lock') }}
+
+  deploy-esa:
+    needs: build
+    if: ${{ github.event_name == 'push'  }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: commit-hash
+        uses: prompt/actions-commit-hash@v3
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Download generate artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: generate-output-${{ steps.commit-hash.outputs.short }}
+          path: dist
+
+      - name: Install ESA CLI
+        run: |
+          bun install -g esa-cli
+
+      - name: Deploy to ESA
+        run: |
+          esa-cli login --access-key-id ${{ secrets.ESA_ACCESS_KEY_ID }} --access-key-secret ${{ secrets.ESA_ACCESS_KEY_SECRET }}
+          esa-cli deploy --assets ./dist --name ${{ env.ESA_PROJECT_NAME }} --minify
 
   deploy-vercel:
     needs: build
