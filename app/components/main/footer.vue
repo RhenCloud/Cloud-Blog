@@ -75,7 +75,7 @@
     <!-- Git build info -->
     <p v-if="build?.short" class="text-text-muted text-xs m-0">
       构建自提交：<span :title="build.sha">{{ build.short }}</span>
-      <span v-if="build.date">· {{ build.date }}</span>
+      <span v-if="build.date"> · {{ build.date }}</span>
     </p>
   </footer>
 </template>
