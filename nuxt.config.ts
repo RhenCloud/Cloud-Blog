@@ -1,5 +1,41 @@
 import siteConfig from "./app/config";
 import tailwindcss from "@tailwindcss/vite";
+import { execSync } from "child_process";
+
+// Compute git build info at build time. If git isn't available (e.g. in
+// certain CI environments), fields will be empty strings.
+const runGit = (cmd: string) => {
+  try {
+    return execSync(cmd, { encoding: "utf8" }).trim();
+  } catch (e) {
+    console.error(e);
+    return "";
+  }
+};
+
+const gitSha = runGit("git rev-parse HEAD");
+const gitShort = runGit("git rev-parse --short HEAD");
+const gitMessage = runGit("git log -1 --pretty=%B");
+const gitDate = runGit("git show -s --format=%ci HEAD");
+
+// Prefer build info from environment variables (set by GitHub Actions
+// or custom CI). Supported vars (in priority order):
+// - BUILD_SHA, GITHUB_SHA
+// - BUILD_SHORT, (derived from SHA if missing)
+// - BUILD_MESSAGE
+// - BUILD_DATE
+// Falls back to git-derived values when env vars are not present.
+const envSha = process.env.BUILD_SHA || process.env.GITHUB_SHA || "";
+const envShort = process.env.BUILD_SHORT || (envSha ? envSha.slice(0, 7) : "") || gitShort || "";
+const envMessage = process.env.BUILD_MESSAGE || "";
+const envDate = process.env.BUILD_DATE || "";
+
+const gitBuild = {
+  sha: envSha || gitSha,
+  short: envShort || gitShort,
+  message: envMessage || gitMessage,
+  date: envDate || gitDate,
+};
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-12-20",
@@ -59,8 +95,8 @@ export default defineNuxtConfig({
         { rel: "stylesheet", href: "/fonts/521/main/result.css" },
       ],
     },
-    pageTransition: { name: "page", mode: "out-in" },
-    layoutTransition: { name: "layout", mode: "out-in" },
+    pageTransition: { name: "page", mode: "in-out" },
+    layoutTransition: { name: "layout", mode: "in-out" },
   },
 
   robots: { groups: [{ userAgent: ["GPTBot", "ChatGPT-User"], disallow: ["/"] }] },
@@ -94,11 +130,9 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    public: {},
-    // Private server-only settings
-    databaseUrl: process.env.DATABASE_URL || "",
-    jwtSecret: process.env.JWT_SECRET || "",
-    // legacy supabase service role no longer used
+    public: {
+      build: gitBuild,
+    },
   },
 
   postcss: {

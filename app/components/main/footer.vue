@@ -2,7 +2,7 @@
 <!-- eslint-disable vue/no-v-text-v-html-on-component -->
 <template>
   <footer
-    class="text-center mt-auto w-full flex flex-col gap-2 py-8 px-4 border-t border-white/10 dark:border-white/5">
+    class="text-center mt-auto w-full flex flex-col gap-2 py-4 px-4 border-t border-white/10 dark:border-white/5">
     <!-- 一言 -->
     <p v-if="showHitokoto && quote" class="text-text-muted text-sm m-0 italic">
       「{{ quote }}」<span v-if="from" class="ml-1.5">—— {{ from }}</span>
@@ -71,6 +71,12 @@
 
     <!-- eslint-disable-next-line vue/no-v-html -->
     <div v-if="contact?.customHtml" v-html="contact.customHtml"></div>
+
+    <!-- Git build info -->
+    <p v-if="build?.short" class="text-text-muted text-xs m-0">
+      构建自提交：<span :title="build.sha">{{ build.short }}</span>
+      <span v-if="build.date">· {{ build.date }}</span>
+    </p>
   </footer>
 </template>
 
@@ -127,6 +133,10 @@ const fetchHitokoto = async () => {
 const isExternal = (url) => {
   return typeof url === "string" && /^https?:\/\//.test(url);
 };
+
+// runtime build info injected from nuxt.config at build time
+const runtimeConfig = useRuntimeConfig();
+const build = runtimeConfig.public?.build || null;
 
 onMounted(() => {
   if (showHitokoto) fetchHitokoto();
