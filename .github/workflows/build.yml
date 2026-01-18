@@ -23,6 +23,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set build env
+        run: |
+          echo "BUILD_SHA=${{ github.sha }}" >> $GITHUB_ENV
+          echo "BUILD_SHORT=${{ steps.commit-hash.outputs.short }}" >> $GITHUB_ENV
+          echo "BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
+          echo "BUILD_MESSAGE=${{ github.event.head_commit.message || '' }}" >> $GITHUB_ENV
+
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
