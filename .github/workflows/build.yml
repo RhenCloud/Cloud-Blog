@@ -141,8 +141,8 @@ jobs:
 
       - name: Deploy to Vercel
         run: |
-          vercel build --prod --yes
-          vercel --token ${{ secrets.VERCEL_TOKEN }} --prebuilt --yes
+          vercel build --token ${{ secrets.VERCEL_TOKEN }} --yes
+          vercel --token ${{ secrets.VERCEL_TOKEN }} --prebuilt --yes --prod
 
   deploy-edgeone:
     needs: build
