@@ -135,13 +135,18 @@ jobs:
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
 
+      - name: Download generate artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: generate-output-${{ steps.commit-hash.outputs.short }}
+          path: .vercel/output/static
+
       - name: Install Vercel CLI
         run: |
           bun install -g vercel
 
       - name: Deploy to Vercel
         run: |
-          vercel build --token ${{ secrets.VERCEL_TOKEN }} --yes
           vercel --token ${{ secrets.VERCEL_TOKEN }} --prebuilt --yes --prod
 
   deploy-edgeone:
