@@ -78,19 +78,17 @@ const siteConfig: SiteConfig = {
     },
   },
 
+  traceConfig: {
+    enable: true,
+    script: `<script charset="UTF-8" id="MXA_COLLECT" src="//mxana.tacool.com/sdk.js"></script>
+<script>MXA.init({ id: "c2-G6ouenNf" })</script>`,
+  },
+
   comment: {
     twikoo: {
       enable: true,
       envId: "https://twikoo.rhen.cloud",
     },
-  },
-
-  umami: {
-    enable: false,
-    scriptUrl: "https://cloud.umami.is/script.js",
-    apiKey: "api_MGcpRPYMcBmTKZOKdUVpr7mlBoWkck5g",
-    websiteId: "b33dfd14-7e62-498b-a199-de0ac38a1d44",
-    apiEndpoint: "https://api.umami.is",
   },
 
   ad: {

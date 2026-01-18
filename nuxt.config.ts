@@ -26,7 +26,6 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxtjs/color-mode",
     "@nuxt/ui",
-    // "nuxt-umami",
     "@formkit/auto-animate",
   ],
 
@@ -116,13 +115,6 @@ export default defineNuxtConfig({
     },
     minify: true,
   },
-
-  // umami: {
-  //   id: siteConfig.umami.websiteId,
-  //   host: siteConfig.umami.apiBase,
-  //   autoTrack: true,
-  //   enabled: siteConfig.umami.enable,
-  // },
 
   colorMode: {
     classSuffix: "",

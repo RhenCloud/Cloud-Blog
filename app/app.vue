@@ -9,8 +9,8 @@ useHead({
   // meta: () => siteMetaData,
 });
 
-const desktopBg = siteConfig.theme.background || "";
-const mobileBg = siteConfig.theme.backgroundMobile || "";
+const desktopBg = siteConfig.theme?.background || "";
+const mobileBg = siteConfig.theme?.backgroundMobile || "";
 
 // 将 siteConfig.theme.color 转换为 CSS 变量
 const hexToRgb = (hex: string) => {
@@ -20,8 +20,31 @@ const hexToRgb = (hex: string) => {
     : "189, 131, 243";
 };
 
-const primaryColor = siteConfig.theme.color || "#bd83f3";
+const primaryColor = siteConfig.theme?.color || "#bd83f3";
 const primaryRgb = hexToRgb(primaryColor);
+
+// Parse traceConfig.script (which may contain raw <script> tags) into
+// proper head script entries to avoid inserting raw HTML into a script
+// element (which causes JS parse errors like "Unexpected token '<'").
+const traceRaw = siteConfig.traceConfig?.script || "";
+const traceScripts = [] as any[];
+if (typeof traceRaw === "string" && traceRaw.trim()) {
+  // find all <script ... src="..."> tags and extract src
+  const srcRegex = /<script[^>]*src=["']([^"']+)["'][^>]*>\s*<\/script>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = srcRegex.exec(traceRaw))) {
+    let src = m[1];
+    if (src?.startsWith("//")) src = `https:${src}`;
+    traceScripts.push({ src });
+  }
+
+  // find inline script contents
+  const inlineRegex = /<script[^>]*>([\s\S]*?)<\/script>/gi;
+  while ((m = inlineRegex.exec(traceRaw))) {
+    const content = (m[1] || "").trim();
+    if (content) traceScripts.push({ children: content, type: "text/javascript" });
+  }
+}
 
 useHead({
   style: [
@@ -29,6 +52,7 @@ useHead({
       innerHTML: `:root { --site-primary: ${primaryColor}; --site-primary-rgb: ${primaryRgb}; }`,
     },
   ],
+  script: traceScripts,
 });
 </script>
 

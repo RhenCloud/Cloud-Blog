@@ -9,11 +9,6 @@
       <span v-if="from && fromWho" class="ml-1.5"> · {{ fromWho }}</span>
     </p>
 
-    <!-- 访问统计 -->
-    <p v-if="showStats && !statsError" class="text-text-muted text-xs m-0">
-      👁️ {{ visitors }} · 📊 {{ pageviews }}
-    </p>
-
     <!-- 备案信息 -->
     <p v-if="contact?.beian" class="text-text-muted text-xs m-0">
       <NuxtLink
@@ -23,19 +18,19 @@
       </NuxtLink>
     </p>
 
-    <div v-if="adStats && ads.length">
-      <template v-for="ad in ads" :key="ad.link">
+    <div v-if="adStats && processedAds.length">
+      <template v-for="ad in processedAds" :key="ad.link">
         <a
           v-if="isExternal(ad.link)"
           :href="ad.link"
           target="_blank"
           rel="noreferrer"
           class="text-text-muted text-sm m-0">
-          <span v-html="ad.body"></span>
+          <span v-html="ad.html"></span>
         </a>
 
         <NuxtLink v-else :to="ad.link" class="text-text-muted text-sm m-0">
-          <span v-html="ad.body"></span>
+          <span v-html="ad.html"></span>
         </NuxtLink>
       </template>
     </div>
@@ -86,14 +81,21 @@ const contact = siteConfig.footer || {};
 const quote = ref("");
 const from = ref("");
 const fromWho = ref("");
-const pageviews = ref(0);
-const visitors = ref(0);
-const statsError = ref(true);
 const showHitokoto = siteConfig.footer?.hitokoto?.enable;
-const showStats = ref(siteConfig.umami?.enable);
 
 const adStats = siteConfig.ad?.enable;
 const ads = siteConfig.ad?.ads || [];
+
+// processedAds: replace root-relative src ("/...") with full site URL to
+// avoid issues when deployed under different hosts/base paths or when
+// root-relative assets are unavailable. Keeps existing HTML otherwise.
+const processedAds = (ads || []).map((ad) => {
+  const html =
+    typeof ad.body === "string"
+      ? ad.body.replace(/src="\/(?!\/)/g, `src="${siteConfig.siteMeta.url}/`)
+      : ad.body;
+  return { ...ad, html };
+});
 
 const buildHitokotoUrl = () => {
   const type = siteConfig.footer?.hitokoto?.type;
@@ -122,59 +124,11 @@ const fetchHitokoto = async () => {
   }
 };
 
-const fetchStats = async () => {
-  try {
-    if (!siteConfig.umami?.apiEndpoint || !siteConfig.umami?.websiteId) {
-      return;
-    }
-    const apiEndpoint = siteConfig.umami.apiEndpoint;
-    const websiteId = siteConfig.umami.websiteId;
-    const apiKey = siteConfig.umami.apiKey;
-
-    if (!apiKey) return;
-
-    // 获取统计数据
-
-    const startAt = new Date(siteConfig.siteMeta.startTime);
-    const endAt = Date.now();
-
-    const resp = await fetch(
-      `${apiEndpoint}/v1/websites/${websiteId}/stats?startAt=${startAt}&endAt=${endAt}`,
-      {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-        },
-      },
-    );
-
-    if (!resp.ok) {
-      console.warn(`Stats API returned ${resp.status}`);
-      statsError.value = true;
-      return;
-    }
-
-    const data = await resp.json();
-    if (data) {
-      statsError.value = false;
-      pageviews.value = data.pageviews;
-      visitors.value = data.visitors;
-    }
-
-    if (pageviews.value === 0 && visitors.value === 0) {
-      showStats.value = false;
-    }
-  } catch (e) {
-    statsError.value = true;
-    console.debug("Stats fetch failed (this is normal if blocked by ad blocker):", e.message);
-  }
-};
-
 const isExternal = (url) => {
   return typeof url === "string" && /^https?:\/\//.test(url);
 };
 
 onMounted(() => {
   if (showHitokoto) fetchHitokoto();
-  if (showStats.value) fetchStats();
 });
 </script>

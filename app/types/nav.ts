@@ -63,19 +63,16 @@ export interface Footer {
   };
 }
 
+export interface TraceConfig {
+  enable?: boolean;
+  script?: string;
+}
+
 export interface CommentConfig {
   twikoo?: {
     enable?: boolean;
     envId?: string;
   };
-}
-
-export interface UmamiConfig {
-  enable?: boolean;
-  scriptUrl?: string;
-  apiKey?: string;
-  websiteId?: string;
-  apiEndpoint?: string;
 }
 
 export interface AdConfig {
@@ -94,7 +91,7 @@ export interface SiteConfig {
   lines?: LineInfo[];
   theme?: Theme;
   footer?: Footer;
+  traceConfig?: TraceConfig;
   comment?: CommentConfig;
-  umami?: UmamiConfig;
   ad?: AdConfig;
 }
