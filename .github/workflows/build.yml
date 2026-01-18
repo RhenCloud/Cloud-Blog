@@ -10,6 +10,7 @@ on:
 env:
   EDGEONE_PROJECT_NAME: blog1
   ESA_PROJECT_NAME: cloud-blog
+  CLOUDFLARE_PROJECT_NAME: cloud-blog
   GIT_DATE: ${{ github.event.head_commit.timestamp || github.event.pusher.date }}
   GIT_SHA: ${{ github.event.head_commit.id || github.sha }}
 
@@ -96,8 +97,8 @@ jobs:
         with:
           node-version: 24
 
-      - name: Install Bun
-        uses: oven-sh/setup-bun@v2
+      # - name: Install Bun
+      #   uses: oven-sh/setup-bun@v2
 
       - name: Download generate artifact
         uses: actions/download-artifact@v4
@@ -107,7 +108,7 @@ jobs:
 
       - name: Install ESA CLI
         run: |
-          bun install -g esa-cli
+          npm install -g esa-cli
 
       - name: Deploy to ESA
         run: |
@@ -179,52 +180,42 @@ jobs:
           fi
           edgeone pages deploy ./dist --token ${{ secrets.EDGEONE_TOKEN }} --name "${{ env.EDGEONE_PROJECT_NAME }}"
 
-  # deploy-cloudflare:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   if: ${{ github.event_name == 'push' && secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' && secrets.CLOUDFLARE_PROJECT_NAME != '' }}
+  deploy-cloudflare:
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
 
-  #   steps:
-  #     - id: commit-hash
-  #       uses: prompt/actions-commit-hash@v3
+    steps:
+      - id: commit-hash
+        uses: prompt/actions-commit-hash@v3
 
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Download generate artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: generate-output-${{ steps.commit-hash.outputs.short }}
-  #         path: dist
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
 
-  #     - name: Deploy to Cloudflare Pages
-  #       uses: cloudflare/pages-action@v1
-  #       with:
-  #         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  #         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-  #         projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
-  #         directory: dist
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
 
-  # deploy-aliyun:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   if: ${{ github.event_name == 'push' && secrets.ALIYUN_ESA_DEPLOY_URL != '' && secrets.ALIYUN_ESA_TOKEN != '' }}
+      - name: Download generate artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: generate-output-${{ steps.commit-hash.outputs.short }}
+          path: dist
 
-  #   steps:
-  #     - id: commit-hash
-  #       uses: prompt/actions-commit-hash@v3
+      - name: Install Cloudflare CLI
+        run: |
+          npm install -g wrangler
 
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-
-  #     - name: Download generate artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: generate-output-${{ steps.commit-hash.outputs.short }}
-  #         path: dist
-
-  #     - name: Package and Deploy to Aliyun ESA
-  #       run: |
-  #         cd dist || exit 1
-  #         zip -r ../dist-deploy.zip .
-  #         curl -v -X POST -H "Authorization: Bearer ${{ secrets.ALIYUN_ESA_TOKEN }}" -F "file=@../dist-deploy.zip" ${{ secrets.ALIYUN_ESA_DEPLOY_URL }}
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./dist --project-name="${{ env.CLOUDFLARE_PROJECT_NAME }}"
+        # run: |
+        #   wrangler login --api-token ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        #   wrangler deploy --name ${{ env.CLOUDFLARE_PROJECT_NAME }} --assets ./dist
