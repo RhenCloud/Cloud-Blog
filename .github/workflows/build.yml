@@ -139,15 +139,20 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: generate-output-${{ steps.commit-hash.outputs.short }}
-          path: .vercel/output/static
+          path: dist
 
       - name: Install Vercel CLI
         run: |
           bun install -g vercel
 
       - name: Deploy to Vercel
-        run: |
-          vercel --token ${{ secrets.VERCEL_TOKEN }} --prebuilt --yes --prod
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          vercel-args: --prod # Optional
+          vercel-org-id: ${{ secrets.ORG_ID}} # Required
+          vercel-project-id: ${{ secrets.PROJECT_ID}} # Required
+          working-directory: dist
 
   deploy-edgeone:
     needs: build
