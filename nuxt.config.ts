@@ -1,3 +1,4 @@
+import { execSync } from "child_process";
 import siteConfig from "./app/config";
 import tailwindcss from "@tailwindcss/vite";
 
@@ -6,11 +7,20 @@ const envShort = process.env.BUILD_SHORT || (envSha ? envSha.slice(0, 7) : "") |
 const envMessage = process.env.BUILD_MESSAGE || "";
 const envDate = process.env.BUILD_DATE || "";
 
+const gitSha = execSync("git rev-parse HEAD").toString().trim();
+const gitShort = gitSha.slice(0, 7);
+const gitMessage = execSync("git log -1 --pretty=%B").toString().trim();
+const gitDate = execSync("git log -1 --format=%cd").toString().trim();
+
 const gitBuild = {
-  sha: envSha,
-  short: envShort,
-  message: envMessage,
-  date: envDate,
+  sha: gitSha,
+  envSha,
+  short: gitShort,
+  envShort,
+  message: gitMessage,
+  envMessage,
+  date: gitDate,
+  envDate,
 };
 
 export default defineNuxtConfig({
