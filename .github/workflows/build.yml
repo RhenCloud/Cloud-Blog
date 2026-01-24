@@ -15,7 +15,7 @@ env:
   GIT_SHA: ${{ github.event.head_commit.id || github.sha }}
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
 
     steps:
@@ -52,6 +52,27 @@ jobs:
       - name: Run Unit Tests
         run: bun run test
 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: commit-hash
+        uses: prompt/actions-commit-hash@v3
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
       - name: Playgroud build check
         run: bun run build
 
@@ -70,8 +91,47 @@ jobs:
             ~/.bun/install/cache
           key: ${{ runner.os }}-build-${{ hashFiles('**/bun.lock') }}
 
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: commit-hash
+        uses: prompt/actions-commit-hash@v3
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Playgroud generate check
+        run: bun run generate
+
+      - name: Upload generate artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: generate-output-${{ steps.commit-hash.outputs.short }}
+          path: dist
+          retention-days: 7
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.bun/install/cache
+          key: ${{ runner.os }}-build-${{ hashFiles('**/bun.lock') }}
+
   deploy-esa:
-    needs: build
+    needs: generate
     if: ${{ github.event_name == 'push'  }}
     runs-on: ubuntu-latest
 
@@ -106,7 +166,7 @@ jobs:
           esa-cli deploy  --name ${{ env.ESA_PROJECT_NAME }} --minify
 
   deploy-vercel:
-    needs: build
+    needs: [check, build]
     if: ${{ github.event_name == 'push'}}
     runs-on: ubuntu-latest
 
@@ -149,7 +209,7 @@ jobs:
         #   working-directory: dist
 
   deploy-edgeone:
-    needs: build
+    needs: [check, build]
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
 
@@ -186,7 +246,7 @@ jobs:
           edgeone pages deploy --token ${{ secrets.EDGEONE_TOKEN }} --name "${{ env.EDGEONE_PROJECT_NAME }}"
 
   deploy-cloudflare:
-    needs: build
+    needs: [check, build]
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
 
