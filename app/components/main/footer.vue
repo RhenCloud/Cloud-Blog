@@ -74,14 +74,26 @@
 
     <!-- Git build info -->
     <p v-if="build?.short" class="text-text-muted text-xs m-0">
-      构建自提交：<span :title="build.sha">{{ build.short }}</span>
+      构建自提交：
+      <template v-if="commitUrl">
+        <a
+          :href="commitUrl"
+          target="_blank"
+          rel="noreferrer"
+          class="text-primary hover:underline"
+          >{{ build.short }}</a
+        >
+      </template>
+      <template v-else>
+        <span :title="build.sha">{{ build.short }}</span>
+      </template>
       <span v-if="build.date"> · {{ build.date }}</span>
     </p>
   </footer>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import siteConfig from "~/config";
 const contact = siteConfig.footer || {};
 const quote = ref("");
@@ -137,6 +149,17 @@ const isExternal = (url) => {
 // runtime build info injected from nuxt.config at build time
 const runtimeConfig = useRuntimeConfig();
 const build = runtimeConfig.public?.build || null;
+
+const repoBase = siteConfig.siteMeta?.repo || null;
+const commitUrl = computed(() => {
+  if (!build?.sha || !repoBase) return null;
+  let base = repoBase;
+  if (!/^https?:\/\//.test(base)) {
+    base = `https://github.com/${base}`;
+  }
+  base = base.replace(/\.git$/, "").replace(/\/$/, "");
+  return `${base}/commit/${build.sha}`;
+});
 
 onMounted(() => {
   if (showHitokoto) fetchHitokoto();

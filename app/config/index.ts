@@ -11,6 +11,8 @@ const siteConfig: SiteConfig = {
     lang: "zh-CN",
     favicon: "/favicon.svg",
     startTime: "2025-10-01",
+    // GitHub repository URL (used for commit links in the footer)
+    repo: "https://github.com/RhenCloud/Cloud-Blog",
   },
 
   hero: {

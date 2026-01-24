@@ -15,6 +15,7 @@ export interface SiteMeta {
   lang?: string;
   favicon?: string;
   startTime?: string;
+  repo?: string;
 }
 
 export interface TypedOptions {
