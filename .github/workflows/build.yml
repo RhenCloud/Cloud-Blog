@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  EDGEONE_PROJECT_NAME: blog1
+  EDGEONE_PROJECT_NAME: cloud-blog
   ESA_PROJECT_NAME: cloud-blog
   CLOUDFLARE_PROJECT_NAME: cloud-blog
   GIT_DATE: ${{ github.event.head_commit.timestamp || github.event.pusher.date }}
