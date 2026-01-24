@@ -94,7 +94,7 @@ const siteConfig: SiteConfig = {
   },
 
   ad: {
-    enable: false,
+    enable: true,
     ads: [
       {
         body: '<p><span class="inline-flex items-center gap-2">本网站由 <img src="/ads/upyun.png" class="h-7 w-auto" alt="Upyun" /> 提供云存储服务</span></p>',
