@@ -33,7 +33,7 @@ jobs:
           echo "BUILD_MESSAGE=${{ github.event.head_commit.message || '' }}" >> $GITHUB_ENV
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
 
@@ -93,7 +93,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
 
@@ -128,7 +128,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
 
@@ -146,13 +146,16 @@ jobs:
           bun install -g vercel
 
       - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          vercel-args: --prod # Optional
-          vercel-org-id: ${{ secrets.ORG_ID}} # Required
-          vercel-project-id: ${{ secrets.PROJECT_ID}} # Required
-          working-directory: dist
+        run: |
+          vercel build --token ${{ secrets.VERCEL_TOKEN }}
+          vercel deploy --prod --token ${{ secrets.VERCEL_TOKEN }} --prebuilt
+        # uses: amondnet/vercel-action@v25
+        # with:
+        #   vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+        #   vercel-args: --prod # Optional
+        #   vercel-org-id: ${{ secrets.ORG_ID}} # Required
+        #   vercel-project-id: ${{ secrets.PROJECT_ID}} # Required
+        #   working-directory: dist
 
   deploy-edgeone:
     needs: build
@@ -167,7 +170,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
 
@@ -204,7 +207,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
 

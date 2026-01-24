@@ -26,5 +26,6 @@
   },
   "[yaml]": {
     "editor.defaultFormatter": "redhat.vscode-yaml"
-  }
+  },
+  "liveServer.settings.root": "/.output/public",
 }
