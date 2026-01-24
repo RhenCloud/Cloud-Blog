@@ -14,5 +14,7 @@ pnpm-lock.yaml
 .env.*
 .DS_Store
 
+*.jsonc
+
 # ignore generated images
 public/images/generated/
