@@ -53,6 +53,7 @@ jobs:
         run: bun run test
 
   build:
+    needs: check
     runs-on: ubuntu-latest
 
     steps:
@@ -92,6 +93,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ hashFiles('**/bun.lock') }}
 
   generate:
+    needs: check
     runs-on: ubuntu-latest
 
     steps:
@@ -131,7 +133,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ hashFiles('**/bun.lock') }}
 
   deploy-esa:
-    needs: generate
+    needs: [check, generate]
     if: ${{ github.event_name == 'push'  }}
     runs-on: ubuntu-latest
 
