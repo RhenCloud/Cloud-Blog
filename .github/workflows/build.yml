@@ -90,11 +90,11 @@ jobs:
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
 
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: build-output-${{ steps.commit-hash.outputs.short }}
-          path: dist
+      # - name: Download build artifact
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: build-output-${{ steps.commit-hash.outputs.short }}
+      #     path: dist
 
       - name: Install ESA CLI
         run: |
@@ -103,7 +103,7 @@ jobs:
       - name: Deploy to ESA
         run: |
           esa-cli login --access-key-id ${{ secrets.ESA_ACCESS_KEY_ID }} --access-key-secret ${{ secrets.ESA_ACCESS_KEY_SECRET }}
-          esa-cli deploy --assets ./dist --name ${{ env.ESA_PROJECT_NAME }} --minify
+          esa-cli deploy  --name ${{ env.ESA_PROJECT_NAME }} --minify
 
   deploy-vercel:
     needs: build
@@ -168,11 +168,11 @@ jobs:
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
 
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: build-output-${{ steps.commit-hash.outputs.short }}
-          path: dist
+      # - name: Download build artifact
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: build-output-${{ steps.commit-hash.outputs.short }}
+      #     path: dist
 
       - name: Install EdgeOne CLI
         run: |
@@ -183,7 +183,7 @@ jobs:
           if [ -z "${{ secrets.EDGEONE_TOKEN }}" ] || [ -z "${{ env.EDGEONE_PROJECT_NAME }}" ]; then
             echo "Skipping EdgeOne deploy: missing EDGEONE_TOKEN or EDGEONE_PROJECT_NAME" && exit 0
           fi
-          edgeone pages deploy ./dist --token ${{ secrets.EDGEONE_TOKEN }} --name "${{ env.EDGEONE_PROJECT_NAME }}"
+          edgeone pages deploy --token ${{ secrets.EDGEONE_TOKEN }} --name "${{ env.EDGEONE_PROJECT_NAME }}"
 
   deploy-cloudflare:
     needs: build
