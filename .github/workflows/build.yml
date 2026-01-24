@@ -62,16 +62,6 @@ jobs:
           path: .output/public
           retention-days: 7
 
-      - name: Playgroud generate check
-        run: bun run generate
-
-      - name: Upload generate artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: generate-output-${{ steps.commit-hash.outputs.short }}
-          path: dist
-          retention-days: 7
-
       - name: Cache node modules
         uses: actions/cache@v4
         with:
@@ -100,10 +90,10 @@ jobs:
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
 
-      - name: Download generate artifact
+      - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: generate-output-${{ steps.commit-hash.outputs.short }}
+          name: build-output-${{ steps.commit-hash.outputs.short }}
           path: dist
 
       - name: Install ESA CLI
@@ -135,10 +125,10 @@ jobs:
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
 
-      - name: Download generate artifact
+      - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: generate-output-${{ steps.commit-hash.outputs.short }}
+          name: build-output-${{ steps.commit-hash.outputs.short }}
           path: dist
 
       - name: Install Vercel CLI
@@ -178,10 +168,10 @@ jobs:
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
 
-      - name: Download generate artifact
+      - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: generate-output-${{ steps.commit-hash.outputs.short }}
+          name: build-output-${{ steps.commit-hash.outputs.short }}
           path: dist
 
       - name: Install EdgeOne CLI
@@ -215,10 +205,10 @@ jobs:
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
 
-      - name: Download generate artifact
+      - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: generate-output-${{ steps.commit-hash.outputs.short }}
+          name: build-output-${{ steps.commit-hash.outputs.short }}
           path: dist
 
       - name: Install Cloudflare CLI
