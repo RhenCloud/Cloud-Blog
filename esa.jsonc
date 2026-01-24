@@ -1,0 +1,12 @@
+{
+  "name": "cloud-home",
+  "buildCommand": "bun run build",
+  "installCommand": "bun install",
+  "assets": {
+    "directory": "./dist",
+    "notFoundStrategy": "singlePageApplication"
+  },
+  "dev": {
+    "port": 18080
+  }
+}

@@ -28,4 +28,7 @@
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
   "liveServer.settings.root": "/.output/public",
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
 }
