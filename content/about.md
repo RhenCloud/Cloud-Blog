@@ -80,6 +80,7 @@
 - [Vercel](https://vercel.com) - 部署平台
 - [Cloudflare](https://cloudflare.com) - CDN 服务 / 部署平台
 - [Tencent EdgeOne](https://edgeone.ai) - CDN 服务 / 部署平台
+- [Aliyun ESA](https://www.aliyun.com/product/esa) - CDN 服务 / 部署平台
 - [Twikoo](https://twikoo.js.org) - 评论系统
 - [Alpine-Starter](https://github.com/nuxt-themes/alpine-starter) - 主题模板
 - [Clarity](https://github.com/L33Z22L11/blog-v3) - 博客部分灵感来源

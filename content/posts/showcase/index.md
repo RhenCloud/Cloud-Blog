@@ -31,7 +31,7 @@ categories: ["Development"]
 
 下面使用新增的 `GithubCard` 组件来渲染一个公开仓库的信息（服务器端获取 GitHub API）：
 
-<!-- <GithubCard repo="RhenCloud/Cloud-Home" /> -->
+<GithubCard repo="RhenCloud/Cloud-Home" />
 
 你也可以把它嵌入到任意文章中：`<GithubCard repo="owner/repo" />`。
 
@@ -63,11 +63,7 @@ categories: ["Development"]
 
 ## 代码块与文件名
 
-支持带文件名的代码块：
-
-```bash [install.sh]
-echo "示例安装脚本"
-```
+支持带文件名的代码块
 
 以及高亮语言：
 
@@ -101,7 +97,3 @@ hello()
 | ---------- | ------------- |
 | GithubCard | 渲染仓库信息  |
 | Warning    | 显示警告/提示 |
-
-## 结语
-
-这篇示例文章覆盖了：组件嵌入（GithubCard、Warning、Alert）、命名槽与默认槽、代码块、图片、列表与表格。若需我把这篇文章在本地 dev 环境中打开并截图验证渲染，请告诉我运行命令（`pnpm dev` / `npm run dev` / `yarn dev`）。

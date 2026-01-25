@@ -6,15 +6,6 @@ export default withNuxt([eslintPluginPrettierRecommended], {
   files: ["src/**/*.ts", "src/**/*.vue"],
   language: "vue",
 
-  "prettier/prettier": [
-    "error",
-    {
-      fileInfoOptions: {
-        usePrettierrc: false,
-      },
-    },
-  ],
-
   // rules: {
   //   'vue/html-self-closing': 'off',
   // },

@@ -1,70 +1,32 @@
 <script setup lang="ts">
-import { computed } from "vue";
-
-interface Repo {
-  full_name: string;
-  html_url: string;
-  description?: string;
-  stargazers_count?: number;
-  forks_count?: number;
-  language?: string;
-  updated_at?: string;
-  owner?: { login: string; avatar_url?: string; html_url?: string };
-  license?: { name?: string };
-}
+import { computed, toRef } from "vue";
+import type { RepoInfo } from "~/composables/useGithubRepo";
 
 const props = defineProps<{ repo: string }>();
-const repoId = computed(() => props.repo.trim());
 
-// parse owner/repo
-const ownerRepo = computed(() => {
-  const parts = repoId.value
-    .split("/")
-    .map((p) => p.trim())
-    .filter(Boolean);
-  return parts.length === 2 ? { owner: parts[0], name: parts[1] } : null;
-});
+const { data, loaded } = useGithubRepo(toRef(props, "repo"), "github");
 
-const key = computed(() => `github-${repoId.value}`);
-const url = computed(() => {
-  if (ownerRepo.value && ownerRepo.value.owner && ownerRepo.value.name) {
-    return `https://api.github.com/repos/${encodeURIComponent(ownerRepo.value.owner)}/${encodeURIComponent(ownerRepo.value.name)}`;
-  } else {
-    return "";
-  }
-});
-
-const { data, pending, error } = await useAsyncData<Repo | null>(
-  () => key.value,
-  () => {
-    if (!ownerRepo.value) {
-      throw new Error("repo prop must be in form owner/name");
-    }
-    return $fetch<Repo>(url.value);
-  },
-  { watch: [repoId] },
-);
-
-const repoData = computed(() => data.value);
+const repoData = computed<RepoInfo | null>(() => data.value);
+const pending = computed(() => !loaded.value);
 </script>
 
 <template>
   <ClientOnly>
     <div
-      v-if="!pending && !error && repoData"
-      class="block rounded-xl p-3.5 md:p-4 bg-linear-to-b from-white/2 to-white/1 text-white/90 border border-white/4 shadow-lg hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-180">
+      v-if="!pending && repoData"
+      class="github-card block rounded-xl p-3.5 md:p-4 bg-linear-to-b from-white/2 to-white/1 text-white/90 border border-white/4 shadow-lg hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-180">
       <a
-        :href="repoData.html_url"
+        :href="repoData.url"
         target="_blank"
         rel="noopener noreferrer"
-        class="flex flex-col gap-0 no-underline text-inherit cursor-pointer">
+        class="flex flex-col gap-0 no-underline hover:no-underline text-inherit cursor-pointer">
         <div class="flex-1">
           <div class="flex justify-between items-start gap-3">
             <div class="flex flex-col flex-1">
               <p class="inline-block no-underline text-inherit cursor-pointer group">
                 <strong
                   class="text-sm font-semibold leading-tight group-hover:text-blue-400 transition-colors"
-                  >{{ repoData.full_name }}</strong
+                  >{{ repoData.fullName }}</strong
                 >
               </p>
             </div>
@@ -75,21 +37,21 @@ const repoData = computed(() => data.value);
                 >{{ repoData.language }}</span
               >
               <span
-                v-if="repoData.stargazers_count"
+                v-if="repoData.convertStars"
                 class="inline-block bg-white/3 text-white/90 px-2 py-0.5 rounded-full text-xs"
-                >★ {{ repoData.stargazers_count }}</span
+                >★ {{ repoData.convertStars }}</span
               >
               <span
-                v-if="repoData.forks_count"
+                v-if="repoData.convertForks"
                 class="inline-block bg-white/3 text-white/90 px-2 py-0.5 rounded-full text-xs"
-                >⑂ {{ repoData.forks_count }}</span
+                >⑂ {{ repoData.convertForks }}</span
               >
             </div>
             <a
-              :href="repoData.html_url"
+              :href="repoData.url"
               target="_blank"
               rel="noopener noreferrer"
-              class="shrink-0 flex items-center justify-center p-1 no-underline text-inherit cursor-pointer hover:opacity-100 transition-all duration-180">
+              class="shrink-0 flex items-center justify-center p-1 no-underline hover:no-underline text-inherit cursor-pointer hover:opacity-100 transition-all duration-180">
               <svg
                 class="opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-180"
                 viewBox="0 0 16 16"
@@ -108,8 +70,8 @@ const repoData = computed(() => data.value);
 
           <div class="mt-2.5 text-xs text-white/60 flex gap-2.5">
             <span v-if="repoData.license?.name">{{ repoData.license.name }}</span>
-            <span v-if="repoData.updated_at"
-              >· 更新于 {{ new Date(repoData.updated_at).toLocaleDateString() }}</span
+            <span v-if="repoData.updatedAt"
+              >· 更新于 {{ new Date(repoData.updatedAt).toLocaleDateString() }}</span
             >
           </div>
         </div>
@@ -127,3 +89,13 @@ const repoData = computed(() => data.value);
     </div>
   </ClientOnly>
 </template>
+
+<style scoped>
+:global(.prose .github-card a) {
+  text-decoration: none !important;
+}
+
+:global(.prose .github-card a:hover) {
+  text-decoration: none !important;
+}
+</style>
