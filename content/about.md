@@ -38,6 +38,7 @@
 - **Vercel** - 部署平台
 - **Netlify** - 部署平台
 - **Tencent EdgeOne** - 部署平台
+- **Aliyun ESA** - 部署平台
 - **Cloudflare** - CDN 和域名托管
 
 ## 关于本站
@@ -74,8 +75,8 @@
 
 感谢以下项目和社区的支持（排名不分先后）：
 
-- [Nuxt.js](https://nuxt.com) - Vue 框架
 - [Vue.js](https://vuejs.org) - 前端框架
+- [Nuxt.js](https://nuxt.com) - Vue 框架
 - [Tailwind CSS](https://tailwindcss.com) - CSS 框架
 - [Vercel](https://vercel.com) - 部署平台
 - [Cloudflare](https://cloudflare.com) - CDN 服务 / 部署平台
