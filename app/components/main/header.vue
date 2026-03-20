@@ -23,55 +23,11 @@ function toggleMobileSubmenu(path: string) {
   mobileOpen.value[path] = !mobileOpen.value[path];
 }
 
-const isLinesOpen = ref(false);
-function toggleLines() {
-  isLinesOpen.value = !isLinesOpen.value;
-}
-
-const linePings = ref<Record<string, number | string>>({});
-
-async function pingLine(url: string) {
-  const start = Date.now();
-  try {
-    // 使用 fetch 测量延迟，no-cors 模式可以避开大部分 CORS 问题
-    await fetch(url, { mode: "no-cors", cache: "no-cache" });
-    linePings.value[url] = Date.now() - start;
-  } catch (e) {
-    linePings.value[url] = "Timeout";
-    console.error(e);
-  }
-}
-
-function updateAllPings() {
-  if (siteConfig.lines) {
-    siteConfig.lines.forEach((line) => {
-      if (line.ping !== false) {
-        linePings.value[line.url] = "...";
-        pingLine(line.url);
-      }
-    });
-  }
-}
-
-function getPingColor(ping: number | string | undefined) {
-  if (typeof ping !== "number") return "text-zinc-400";
-  if (ping < 300) return "text-emerald-500";
-  if (ping < 800) return "text-amber-500";
-  return "text-rose-500";
-}
-
-watch(isLinesOpen, (val) => {
-  if (val) {
-    updateAllPings();
-  }
-});
-
 // 路由变化时关闭菜单
 watch(
   () => route.path,
   () => {
     isMenuOpen.value = false;
-    isLinesOpen.value = false;
     // 关闭所有移动端子菜单
     mobileOpen.value = {};
   },
@@ -92,60 +48,17 @@ watch(
           </NuxtLink>
 
           <div class="flex items-center gap-2">
-            <!-- 线路切换 (移动端) -->
-            <div v-if="siteConfig.lines && siteConfig.lines.length > 0" class="relative">
-              <button
-                class="h-10 w-10 rounded-full bg-white/80 dark:bg-slate-900/80 border border-zinc-200/50 dark:border-white/10 shadow-sm flex items-center justify-center transition-all active:scale-90"
-                title="切换线路"
-                @click="toggleLines">
-                <Icon name="fa6-solid:bolt" size="16" class="text-zinc-700 dark:text-zinc-200" />
-              </button>
-
-              <transition
-                enter-active-class="transition duration-200 ease-out"
-                enter-from-class="translate-y-1 opacity-0 scale-95"
-                enter-to-class="translate-y-0 opacity-100 scale-100"
-                leave-active-class="transition duration-150 ease-in"
-                leave-from-class="translate-y-0 opacity-100 scale-100"
-                leave-to-class="translate-y-1 opacity-0 scale-95">
-                <div
-                  v-if="isLinesOpen"
-                  class="absolute top-full right-0 mt-2 w-32 overflow-hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-zinc-200/60 dark:border-white/10 rounded-2xl shadow-xl z-50">
-                  <div class="p-1">
-                    <NuxtLink
-                      v-for="line in siteConfig.lines"
-                      :key="line.url"
-                      :to="line.url + route.path"
-                      class="flex items-center justify-between px-3 py-2 rounded-xl text-sm text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
-                      @click="isLinesOpen = false">
-                      <span>{{ line.name }}</span>
-                      <span
-                        v-if="line.ping !== false && linePings[line.url]"
-                        class="text-xs font-mono"
-                        :class="getPingColor(linePings[line.url])">
-                        {{
-                          typeof linePings[line.url] === "number"
-                            ? linePings[line.url] + "ms"
-                            : linePings[line.url]
-                        }}
-                      </span>
-                    </NuxtLink>
-                  </div>
-                </div>
-              </transition>
-            </div>
-
-            <ClientOnly>
-              <button
-                class="h-10 w-10 rounded-full bg-white/80 dark:bg-slate-900/80 border border-zinc-200/50 dark:border-white/10 shadow-sm flex items-center justify-center transition-all active:scale-90"
-                :title="colorMode.value === 'light' ? '切换到深色模式' : '切换到浅色模式'"
-                @click="onClick(colorMode.value === 'light' ? 'dark' : 'light')">
-                <Icon
-                  :name="colorMode.value === 'light' ? 'fa-regular:moon' : 'fa-regular:sun'"
-                  size="18"
-                  :class="colorMode.value === 'light' ? 'text-zinc-700' : 'text-yellow-400'" />
-              </button>
-            </ClientOnly>
+            <!-- <ClientOnly> -->
+            <button
+              class="h-10 w-10 rounded-full bg-white/80 dark:bg-slate-900/80 border border-zinc-200/50 dark:border-white/10 shadow-sm flex items-center justify-center transition-all active:scale-90"
+              :title="colorMode.value === 'light' ? '切换到深色模式' : '切换到浅色模式'"
+              @click="onClick(colorMode.value === 'light' ? 'dark' : 'light')">
+              <Icon
+                :name="colorMode.value === 'light' ? 'fa-regular:moon' : 'fa-regular:sun'"
+                size="18"
+                :class="colorMode.value === 'light' ? 'text-zinc-700' : 'text-yellow-400'" />
+            </button>
+            <!-- </ClientOnly> -->
 
             <button
               class="h-10 w-10 rounded-full bg-white/80 dark:bg-slate-900/80 border border-zinc-200/50 dark:border-white/10 shadow-sm flex items-center justify-center transition-all active:scale-90"
@@ -233,52 +146,6 @@ watch(
 
           <!-- 桌面端主题切换 (右上角) -->
           <div class="absolute right-0 flex items-center gap-3">
-            <!-- 线路切换 (桌面端) -->
-            <div v-if="siteConfig.lines && siteConfig.lines.length > 0" class="relative">
-              <button
-                class="h-14 w-14 rounded-full bg-white/80 dark:bg-slate-900/80 border border-zinc-200/50 dark:border-white/10 shadow-sm flex items-center justify-center transition-all hover:scale-110 active:scale-95 backdrop-blur-xl"
-                title="切换线路"
-                @click="toggleLines">
-                <Icon name="fa6-solid:bolt" size="20" class="text-zinc-700 dark:text-zinc-200" />
-              </button>
-
-              <transition
-                enter-active-class="transition duration-200 ease-out"
-                enter-from-class="translate-y-2 opacity-0 scale-95"
-                enter-to-class="translate-y-0 opacity-100 scale-100"
-                leave-active-class="transition duration-150 ease-in"
-                leave-from-class="translate-y-0 opacity-100 scale-100"
-                leave-to-class="translate-y-2 opacity-0 scale-95">
-                <div
-                  v-if="isLinesOpen"
-                  class="absolute top-full right-0 mt-3 w-36 overflow-hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-zinc-200/60 dark:border-white/10 rounded-2xl shadow-2xl z-50">
-                  <div class="p-1.5">
-                    <NuxtLink
-                      v-for="line in siteConfig.lines"
-                      :key="line.url"
-                      :to="line.url + route.path"
-                      class="flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
-                      @click="isLinesOpen = false">
-                      <div class="flex items-center">
-                        <Icon name="fa6-solid:link" size="14" class="mr-2 opacity-50" />
-                        {{ line.name }}
-                      </div>
-                      <span
-                        v-if="line.ping !== false && linePings[line.url]"
-                        class="text-xs font-mono ml-2"
-                        :class="getPingColor(linePings[line.url])">
-                        {{
-                          typeof linePings[line.url] === "number"
-                            ? linePings[line.url] + "ms"
-                            : linePings[line.url]
-                        }}
-                      </span>
-                    </NuxtLink>
-                  </div>
-                </div>
-              </transition>
-            </div>
-
             <ClientOnly>
               <button
                 :title="colorMode.value === 'light' ? '切换到深色模式' : '切换到浅色模式'"
@@ -406,13 +273,7 @@ watch(
   </header>
 
   <!-- 菜单遮罩 -->
-  <div
-    v-if="isMenuOpen || isLinesOpen"
-    class="fixed inset-0 z-40 bg-black/5"
-    @click="
-      isMenuOpen = false;
-      isLinesOpen = false;
-    "></div>
+  <div v-if="isMenuOpen" class="fixed inset-0 z-40 bg-black/5" @click="isMenuOpen = false"></div>
 
   <!-- Spacer to prevent page content being hidden under fixed header -->
   <div class="h-20" aria-hidden="true"></div>
@@ -494,7 +355,7 @@ header .absolute.right-0 {
     margin-right: 0 !important;
     z-index: 10;
   }
-  /* 缩小主题切换和线路按钮尺寸 */
+  /* 缩小右侧按钮尺寸 */
   header .absolute.right-0 .h-14,
   header .absolute.right-0 .w-14 {
     height: 2.5rem !important;

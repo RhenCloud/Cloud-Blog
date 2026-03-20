@@ -42,12 +42,6 @@ export interface SocialLink {
   url: string;
 }
 
-export interface LineInfo {
-  name: string;
-  url: string;
-  ping?: boolean;
-}
-
 export interface Theme {
   background?: string;
   backgroundMobile?: string;
@@ -89,7 +83,6 @@ export interface SiteConfig {
   navbar: {
     links: NavLink[];
   };
-  lines?: LineInfo[];
   theme?: Theme;
   footer?: Footer;
   traceConfig?: TraceConfig;
