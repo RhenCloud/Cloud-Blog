@@ -49,7 +49,8 @@ useHead({
       <div class="p-3 bg-primary-10 rounded-2xl mb-4">
         <Icon name="fa-solid:link" size="2.5em" class="text-primary" />
       </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-zinc-800 dark:text-zinc-100 mb-4 tracking-tight">
+      <h1
+        class="text-4xl md:text-5xl font-bold text-zinc-800 dark:text-zinc-100 mb-4 tracking-tight">
         友链
       </h1>
       <p class="text-zinc-600 dark:text-zinc-400 text-center max-w-2xl">
@@ -78,13 +79,16 @@ useHead({
           </div>
 
           <div class="min-w-0 flex-1">
-            <div class="text-lg font-bold text-zinc-800 dark:text-zinc-100 group-text-primary transition-colors">
+            <div
+              class="text-lg font-bold text-zinc-800 dark:text-zinc-100 group-text-primary transition-colors">
               {{ link.name }}
             </div>
             <div class="text-sm text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
               {{ link.hostname }}
             </div>
-            <p v-if="link.description" class="text-sm text-zinc-600 dark:text-zinc-300 mt-2 leading-relaxed">
+            <p
+              v-if="link.description"
+              class="text-sm text-zinc-600 dark:text-zinc-300 mt-2 leading-relaxed">
               {{ link.description }}
             </p>
           </div>
@@ -99,7 +103,8 @@ useHead({
     <div
       v-else
       class="rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-700 px-6 py-12 text-center bg-white/40 dark:bg-slate-900/40">
-      <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary-10 text-primary mb-3">
+      <div
+        class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary-10 text-primary mb-3">
         <Icon name="fa-solid:circle-info" size="18" />
       </div>
       <h2 class="text-xl font-bold text-zinc-800 dark:text-zinc-100">暂未添加友链</h2>
