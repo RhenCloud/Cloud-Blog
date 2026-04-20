@@ -1,6 +1,6 @@
 ---
 title: "NixOS 种草指南"
-published: false
+published: true
 date: 2026-04-21
 updatedDate: 2026-04-21
 description: "结合我的真实经历，聊聊为什么 NixOS 值得尝试。"
