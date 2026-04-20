@@ -38,6 +38,21 @@ const siteConfig: SiteConfig = {
     { name: "X", url: "https://x.com/RhenCloud75" },
   ],
 
+  friendLinks: [
+    {
+      name: "SiiWay Team Home",
+      url: "https://siiway.top",
+      description: "SiiWay 团队官方主页",
+      avatar: "https://icons.siiway.org/siiway/icon.svg",
+    },
+    {
+      name: "wyf9's Blog",
+      url: "https://wyf9.top",
+      description: "什么都有的个人 blog?",
+      avatar: "https://wyf9.top/favicon.png",
+    },
+  ],
+
   navbar: {
     links: [
       // { name: "Home", path: "/", icon: "fa6-solid:house" },
@@ -52,6 +67,7 @@ const siteConfig: SiteConfig = {
         // ],
       },
       { name: "标签", path: "/tags", icon: "fa-solid:tags" },
+      { name: "友链", path: "/friends", icon: "fa-solid:link" },
       { name: "关于", path: "/about", icon: "fa-solid:user" },
     ],
   },

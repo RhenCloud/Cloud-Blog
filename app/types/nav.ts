@@ -42,6 +42,13 @@ export interface SocialLink {
   url: string;
 }
 
+export interface FriendLink {
+  name: string;
+  url: string;
+  description?: string;
+  avatar?: string;
+}
+
 export interface Theme {
   background?: string;
   backgroundMobile?: string;
@@ -80,6 +87,7 @@ export interface SiteConfig {
   hero: Hero;
   profile: Profile;
   socialLinks: SocialLink[];
+  friendLinks?: FriendLink[];
   navbar: {
     links: NavLink[];
   };
