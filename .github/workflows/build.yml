@@ -30,7 +30,9 @@ jobs:
           echo "BUILD_SHA=${{ github.sha }}" >> $GITHUB_ENV
           echo "BUILD_SHORT=${{ steps.commit-hash.outputs.short }}" >> $GITHUB_ENV
           echo "BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
-          echo "BUILD_MESSAGE=${{ github.event.head_commit.message || '' }}" >> $GITHUB_ENV
+          echo "BUILD_MESSAGE<<GHA_EOF" >> $GITHUB_ENV
+          echo "${{ github.event.head_commit.message || '' }}" >> $GITHUB_ENV
+          echo "GHA_EOF" >> $GITHUB_ENV
 
       - name: Install Node.js
         uses: actions/setup-node@v6
