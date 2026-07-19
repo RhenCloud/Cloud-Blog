@@ -161,6 +161,6 @@ export default defineNuxtConfig({
   },
 
   experimental: {
-    buildCache: true,
+    buildCache: !process.env.CI,
   },
 });

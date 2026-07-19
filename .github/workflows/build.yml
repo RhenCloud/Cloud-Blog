@@ -78,6 +78,8 @@ jobs:
 
       - name: Playgroud build check
         run: bun run build
+        env:
+          NODE_OPTIONS: "--max-old-space-size=7168"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -118,6 +120,8 @@ jobs:
 
       - name: Playgroud generate check
         run: bun run generate
+        env:
+          NODE_OPTIONS: "--max-old-space-size=7168"
 
       - name: Upload generate artifact
         uses: actions/upload-artifact@v4
