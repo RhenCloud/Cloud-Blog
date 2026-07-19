@@ -19,6 +19,7 @@ export default defineAppConfig({
       // },
       codeIcon: {
         config: "i-lucide-settings",
+        conf: "i-lucide-settings",
       },
     },
   },

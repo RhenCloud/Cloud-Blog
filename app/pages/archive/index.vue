@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import Fuse from "fuse.js";
+import { useAutoAnimate } from "@formkit/auto-animate/vue";
 import { formatDate } from "~/utils/helper";
 import siteConfig from "~/config";
 const { path } = useRoute();
@@ -59,6 +60,8 @@ const searchResults = computed(() => {
   const results = fuse.value.search(searchTest.value);
   return results.map((result) => result.item);
 });
+
+const [animationContainer] = useAutoAnimate();
 </script>
 
 <template>
@@ -97,7 +100,7 @@ const searchResults = computed(() => {
     </div>
 
     <!-- 文章列表 -->
-    <div v-auto-animate class="space-y-5 my-5 px-4">
+    <div :ref="animationContainer" class="space-y-5 my-5 px-4">
       <template v-for="post in searchResults" :key="post.title">
         <ArchiveCard
           :path="post.path"
