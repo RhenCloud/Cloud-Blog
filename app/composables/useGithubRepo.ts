@@ -117,8 +117,7 @@ function normalizeRepoInfo(
   const r = raw as Record<string, unknown>;
   const fullName = (r.fullName ?? r.full_name ?? fallbackFullName) as string;
   const name = (r.name ?? (typeof fullName === "string" ? fullName.split("/").at(1) : "")) as
-    | string
-    | undefined;
+    string | undefined;
   const stars = (r.stars ?? r.stargazers_count ?? 0) as number;
   const forks = (r.forks ?? r.forks_count ?? 0) as number;
   const watchers = (r.watchers ?? r.subscribers_count ?? 0) as number;

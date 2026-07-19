@@ -48,7 +48,6 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxtjs/color-mode",
     "@nuxt/ui",
-    "@formkit/auto-animate",
   ],
 
   vite: {
