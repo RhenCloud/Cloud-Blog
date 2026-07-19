@@ -45,16 +45,23 @@ const formattedData = computed(() => {
 </script>
 
 <template>
-  <section class="pb-10 px-4">
-    <div class="flex flex-row items-center justify-between pt-10 pb-6">
-      <div class="flex items-center space-x-3">
-        <h2 class="text-3xl font-bold text-zinc-800 dark:text-zinc-100 tracking-tight">
+  <section class="relative pb-14 px-2 sm:px-4">
+    <div
+      class="pointer-events-none absolute -left-24 top-10 h-56 w-56 rounded-full bg-primary-10 blur-3xl"></div>
+    <div
+      class="relative flex flex-col gap-4 pt-8 pb-6 sm:flex-row sm:items-end sm:justify-between sm:pt-10 sm:pb-7">
+      <div class="flex flex-col gap-2">
+        <span class="text-xs font-bold uppercase tracking-[0.35em] text-primary"
+          >Latest Dispatch</span
+        >
+        <h2
+          class="text-2xl sm:text-4xl font-extrabold text-zinc-900 dark:text-zinc-50 tracking-[-0.05em]">
           Recent Posts
         </h2>
       </div>
       <NuxtLink
         to="/archive"
-        class="group flex items-center gap-1 text-sm font-semibold text-zinc-900 dark:text-zinc-50 hover-text-primary transition-colors">
+        class="group inline-flex w-fit items-center gap-2 rounded-full border border-white/50 bg-white/45 px-4 py-2 text-sm font-semibold text-zinc-800 shadow-sm backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:border-primary hover:bg-primary-10 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100">
         查看全部文章
         <Icon
           name="heroicons:arrow-right-20-solid"
@@ -62,10 +69,10 @@ const formattedData = computed(() => {
       </NuxtLink>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+    <div class="relative grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-7 lg:gap-8">
       <template v-for="post in formattedData" :key="post.title">
         <div
-          class="transition-transform transform hover:scale-[1.02] hover:shadow-lg rounded-lg overflow-hidden h-full">
+          class="h-full rounded-[1.75rem] transition-transform duration-500 hover:-translate-y-1">
           <BlogCard
             class="h-full"
             :path="post.path"

@@ -17,7 +17,7 @@ useHead({
       <p class="text-xl text-zinc-600 dark:text-zinc-400 mb-8">页面未找到</p>
       <NuxtLink
         to="/"
-        class="inline-block bg-violet-600 hover:bg-violet-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+        class="inline-block bg-primary hover:bg-primary text-white font-semibold py-2 px-6 rounded-lg transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(var(--site-primary-rgb),0.24)]">
         返回首页
       </NuxtLink>
     </div>

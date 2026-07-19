@@ -26,7 +26,7 @@ const gitBuild = {
 export default defineNuxtConfig({
   compatibilityDate: "2025-12-20",
   srcDir: "app/",
-  css: ["./app/assets/css/main.css"],
+  css: ["~/assets/css/main.css"],
 
   site: {
     url: siteConfig.siteMeta.url,

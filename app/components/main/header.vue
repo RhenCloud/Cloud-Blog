@@ -35,22 +35,26 @@ watch(
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 right-0 z-50 h-20 backdrop-blur-sm font-semibold px-4 lg:px-8">
+  <header
+    class="fixed top-0 left-0 right-0 z-50 h-16 lg:h-20 backdrop-blur-sm font-semibold px-3 sm:px-4 lg:px-8">
     <div class="flex justify-center items-center h-full w-full relative">
       <nav class="flex items-center justify-center w-full">
         <!-- 移动端导航栏 -->
-        <div class="flex lg:hidden items-center justify-between w-full">
+        <div
+          class="flex lg:hidden items-center justify-between w-full h-12 rounded-full glass-panel px-2">
           <NuxtLink
             to="/"
-            class="flex items-center gap-2 h-10 px-4 rounded-full bg-white/80 dark:bg-slate-900/80 border border-zinc-200/50 dark:border-white/10 shadow-sm backdrop-blur-xl transition-transform active:scale-95">
+            class="min-w-0 flex-1 flex items-center gap-2 h-10 px-2 transition-transform active:scale-95">
             <!-- <Icon name="fa-solid:cat" size="18" class="text-primary flex items-center" /> -->
-            <span class="text-base font-bold text-primary">{{ siteConfig.siteMeta.title }}</span>
+            <span class="truncate text-sm font-bold text-primary">{{
+              siteConfig.siteMeta.title
+            }}</span>
           </NuxtLink>
 
-          <div class="flex items-center gap-2">
+          <div class="shrink-0 flex items-center gap-1.5">
             <!-- <ClientOnly> -->
             <button
-              class="h-10 w-10 rounded-full bg-white/80 dark:bg-slate-900/80 border border-zinc-200/50 dark:border-white/10 shadow-sm flex items-center justify-center transition-all active:scale-90"
+              class="h-9 w-9 rounded-full bg-white/45 dark:bg-white/5 flex items-center justify-center transition-all active:scale-90"
               :title="colorMode.value === 'light' ? '切换到深色模式' : '切换到浅色模式'"
               @click="onClick(colorMode.value === 'light' ? 'dark' : 'light')">
               <Icon
@@ -61,7 +65,7 @@ watch(
             <!-- </ClientOnly> -->
 
             <button
-              class="h-10 w-10 rounded-full bg-white/80 dark:bg-slate-900/80 border border-zinc-200/50 dark:border-white/10 shadow-sm flex items-center justify-center transition-all active:scale-90"
+              class="h-9 w-9 rounded-full bg-white/45 dark:bg-white/5 flex items-center justify-center transition-all active:scale-90"
               aria-label="菜单"
               @click="toggleMenu">
               <Icon
@@ -76,9 +80,9 @@ watch(
         <div class="hidden lg:flex items-center justify-center w-full relative h-14">
           <!-- 桌面端导航栏logo (左上角) -->
           <div
-            class="absolute left-0 h-14 flex items-center rounded-full border bg-white/80 dark:bg-slate-900/80 border-zinc-200/50 dark:border-white/10 shadow-sm backdrop-blur-xl transition-transform px-1"
+            class="absolute left-0 h-14 flex items-center rounded-full glass-panel transition-transform px-1"
             :class="{
-              'bg-white dark:bg-slate-800 shadow-sm font-bold': isActive('/'),
+              'bg-primary-10 shadow-sm font-bold': isActive('/'),
               'hover:bg-zinc-100 dark:hover:bg-white/10': !isActive('/'),
             }">
             <NuxtLink to="/" class="flex h-12 duration-200 items-center gap-2 px-4 text-lg">
@@ -89,7 +93,7 @@ watch(
 
           <!-- 桌面端导航栏 (居中) -->
           <div
-            class="inline-flex items-center h-14 bg-white/70 dark:bg-slate-900/50 backdrop-blur-xl shadow-[0_4px_20px_-2px_rgba(0,0,0,0.1)] border border-zinc-200/50 dark:border-white/5 rounded-full px-1.5 transition-all duration-300 hover:shadow-xl">
+            class="inline-flex items-center h-14 glass-panel rounded-full px-1.5 transition-all duration-300 hover:shadow-[0_18px_55px_rgba(var(--site-primary-rgb),0.16)]">
             <ul class="flex items-center space-x-1.5 text-lg">
               <template v-for="link in siteConfig.navbar.links" :key="link.path">
                 <li v-if="!link.children">
@@ -97,7 +101,7 @@ watch(
                     :to="link.path"
                     class="relative h-12 px-3 rounded-full transition-all duration-200 flex items-center text-zinc-700 dark:text-zinc-200"
                     :class="{
-                      'bg-white dark:bg-slate-800 shadow-sm font-bold': isActive(link.path),
+                      'bg-primary-10 text-primary shadow-sm font-bold': isActive(link.path),
                       'hover:bg-zinc-100 dark:hover:bg-white/10': !isActive(link.path),
                     }">
                     <Icon
@@ -112,7 +116,7 @@ watch(
                   <div
                     class="relative h-12 px-3 rounded-full transition-all duration-200 flex items-center cursor-pointer text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-white/10"
                     :class="{
-                      'bg-white dark:bg-slate-800 shadow-sm font-bold': isActive(link.path),
+                      'bg-primary-10 text-primary shadow-sm font-bold': isActive(link.path),
                     }">
                     <Icon
                       v-if="link.icon"
@@ -149,12 +153,12 @@ watch(
             <ClientOnly>
               <button
                 :title="colorMode.value === 'light' ? '切换到深色模式' : '切换到浅色模式'"
-                class="relative h-14 w-14 rounded-full bg-white/80 dark:bg-slate-900/80 border border-zinc-200/50 dark:border-white/10 shadow-sm flex items-center justify-center transition-all hover:scale-110 active:scale-95 backdrop-blur-xl"
+                class="relative h-14 w-14 rounded-full glass-panel flex items-center justify-center transition-all hover:scale-110 active:scale-95"
                 @click="onClick(colorMode.value === 'light' ? 'dark' : 'light')">
                 <Icon
                   name="fa-regular:moon"
                   size="20"
-                  class="icon-svg transition-all duration-300 text-zinc-700 dark:text-white-200"
+                  class="icon-svg transition-all duration-300 text-zinc-700 dark:text-zinc-100"
                   :class="
                     colorMode.value === 'light'
                       ? 'opacity-100 scale-100'
@@ -185,7 +189,7 @@ watch(
           leave-to-class="translate-y-2 opacity-0 scale-95">
           <div
             v-if="isMenuOpen"
-            class="lg:hidden absolute top-full right-0 mt-3 w-56 overflow-hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-zinc-200/60 dark:border-white/10 rounded-3xl shadow-2xl z-50 origin-top-right">
+            class="lg:hidden absolute left-0 right-0 top-full mt-2 max-h-[calc(100svh-5rem)] overflow-y-auto glass-panel rounded-3xl z-50 origin-top">
             <div class="p-2">
               <ul class="space-y-1">
                 <li v-for="link in siteConfig.navbar.links" :key="link.path">
@@ -195,7 +199,7 @@ watch(
                       class="flex items-center justify-between px-4 py-3.5 rounded-2xl text-zinc-700 dark:text-zinc-200 transition-all active:scale-[0.98]"
                       :class="
                         isActive(link.path)
-                          ? 'bg-violet-500/10 text-violet-600 dark:text-violet-400 font-bold'
+                          ? 'bg-primary-10 text-primary font-bold'
                           : 'hover:bg-zinc-100 dark:hover:bg-white/5'
                       "
                       @click="isMenuOpen = false">
@@ -203,7 +207,9 @@ watch(
                         <div
                           class="w-8 h-8 rounded-xl flex items-center justify-center transition-colors"
                           :class="
-                            isActive(link.path) ? 'bg-violet-500/20' : 'bg-zinc-100 dark:bg-white/5'
+                            isActive(link.path)
+                              ? 'bg-primary-10 text-primary'
+                              : 'bg-zinc-100 dark:bg-white/5'
                           ">
                           <Icon v-if="link.icon" :name="link.icon" size="16" />
                         </div>
@@ -218,7 +224,7 @@ watch(
                       class="flex items-center justify-between px-4 py-3.5 rounded-2xl text-zinc-700 dark:text-zinc-200 transition-all active:scale-[0.98]"
                       :class="
                         isActive(link.path)
-                          ? 'bg-violet-500/10 text-violet-600 dark:text-violet-400 font-bold'
+                          ? 'bg-primary-10 text-primary font-bold'
                           : 'hover:bg-zinc-100 dark:hover:bg-white/5'
                       "
                       @click="toggleMobileSubmenu(link.path)">
@@ -226,7 +232,9 @@ watch(
                         <div
                           class="w-8 h-8 rounded-xl flex items-center justify-center transition-colors"
                           :class="
-                            isActive(link.path) ? 'bg-violet-500/20' : 'bg-zinc-100 dark:bg-white/5'
+                            isActive(link.path)
+                              ? 'bg-primary-10 text-primary'
+                              : 'bg-zinc-100 dark:bg-white/5'
                           ">
                           <Icon v-if="link.icon" :name="link.icon" size="16" />
                         </div>
@@ -276,7 +284,7 @@ watch(
   <div v-if="isMenuOpen" class="fixed inset-0 z-40 bg-black/5" @click="isMenuOpen = false"></div>
 
   <!-- Spacer to prevent page content being hidden under fixed header -->
-  <div class="h-20" aria-hidden="true"></div>
+  <div class="h-16 lg:h-20" aria-hidden="true"></div>
 </template>
 
 <style scoped>
@@ -309,90 +317,6 @@ header .absolute.left-0 {
 
 header .absolute.right-0 {
   margin-right: -15px; /* 减小右侧距离 */
-}
-
-/* 强制显示桌面端navbar，隐藏移动端 */
-@media (min-width: 769px) and (max-width: 1023px) {
-  /* 显示桌面端navbar，隐藏移动端 */
-  .hidden.lg\:flex.items-center.justify-center.w-full.relative.h-14 {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
-  .lg\:hidden {
-    display: none !important;
-  }
-  /* logo和右侧按钮绝对定位，navbar居中 */
-  header .absolute.left-0 {
-    position: absolute !important;
-    left: 0.5rem !important;
-    margin-left: 0 !important;
-    z-index: 10;
-    height: 2.5rem !important;
-    display: flex !important;
-    align-items: center !important;
-  }
-  header .absolute.left-0 .h-14 {
-    height: 2.5rem !important;
-    min-width: 2.5rem !important;
-    width: auto !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-    display: flex !important;
-    align-items: center !important;
-  }
-  header .absolute.left-0 .h-12 {
-    height: 2.5rem !important;
-    font-size: 1rem !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-    display: flex !important;
-    align-items: center !important;
-  }
-  header .absolute.right-0 {
-    position: absolute !important;
-    right: 0.5rem !important;
-    margin-right: 0 !important;
-    z-index: 10;
-  }
-  /* 缩小右侧按钮尺寸 */
-  header .absolute.right-0 .h-14,
-  header .absolute.right-0 .w-14 {
-    height: 2.5rem !important;
-    width: 2.5rem !important;
-  }
-  header .absolute.right-0 .gap-3 {
-    gap: 0.5rem !important;
-  }
-  /* navbar最大宽度，居中显示 */
-  .inline-flex.items-center.h-14 {
-    margin-left: auto !important;
-    margin-right: auto !important;
-    height: 2.5rem !important;
-    border-radius: 1.5rem !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-    min-width: 0;
-    max-width: 700px !important;
-    justify-content: center !important;
-  }
-  /* 缩小ul间距和字体 */
-  .inline-flex.items-center.h-14 ul.flex.items-center.space-x-1\.5.text-lg {
-    gap: 0.25rem !important;
-    font-size: 1rem !important;
-  }
-  /* 缩小每个链接的padding和高度 */
-  .inline-flex.items-center.h-14 ul.flex.items-center li .h-12 {
-    height: 2rem !important;
-  }
-  .inline-flex.items-center.h-14 ul.flex.items-center li .px-3 {
-    padding-left: 0.75rem !important;
-    padding-right: 0.75rem !important;
-  }
-  /* 缩小图标和文字间距 */
-  .inline-flex.items-center.h-14 ul.flex.items-center li .mr-2 {
-    margin-right: 0.25rem !important;
-  }
 }
 
 /* 解决 navbar 子菜单 hover 闪烁问题，提升可用性 */

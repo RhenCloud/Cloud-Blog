@@ -1,13 +1,13 @@
 <template>
   <section class="flex flex-col gap-2.5">
-    <div class="flex flex-wrap gap-2.5">
+    <div class="flex flex-wrap justify-center gap-2.5">
       <template v-for="link in links" :key="link.url">
         <UTooltip :text="link.name">
           <NuxtLink
             :to="link.url"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur-md border border-white/40 text-zinc-700 transition-all duration-300 hover:bg-white/60 hover:border-white/60 hover:text-black hover:-translate-y-1 hover:shadow-lg dark:bg-slate-800/40 dark:border-white/10 dark:text-zinc-300 dark:hover:bg-slate-800/60 dark:hover:text-white">
+            class="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-panel text-zinc-700 transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:text-primary hover:shadow-[0_16px_42px_rgba(var(--site-primary-rgb),0.2)] dark:text-zinc-300 dark:hover:text-white">
             <Icon v-if="iconFor(link)" :name="iconFor(link)" size="22" class="text-current" />
           </NuxtLink>
         </UTooltip>

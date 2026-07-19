@@ -47,9 +47,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="!isMobile" class="w-full lg:w-1/3 hidden lg:block sticky top-28">
+  <div v-if="!isMobile" class="w-full lg:w-1/3 hidden lg:block sticky top-24 self-start">
     <div
-      class="h-fit max-h-[calc(100vh-8rem)] overflow-y-auto bg-white/40 dark:bg-slate-800/40 backdrop-blur-md border border-white/20 dark:border-white/5 p-6 rounded-3xl shadow-sm">
+      class="h-fit max-h-[calc(100svh-7rem)] overflow-y-auto bg-white/40 dark:bg-slate-800/40 backdrop-blur-md border border-white/20 dark:border-white/5 p-6 rounded-3xl shadow-sm">
       <h3
         class="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4 flex items-center gap-2">
         <Icon name="heroicons:list-bullet" class="w-4 h-4" />
@@ -62,8 +62,8 @@ onMounted(() => {
             class="block text-sm py-1.5 px-3 rounded-xl transition-all duration-200"
             :class="[
               activeId === link.id
-                ? 'text-violet-600 dark:text-violet-400 bg-violet-500/10 font-bold translate-x-1'
-                : 'text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-violet-500/5',
+                ? 'text-primary bg-primary-10 font-bold translate-x-1'
+                : 'text-zinc-600 dark:text-zinc-400 hover:text-primary hover:bg-primary-10',
             ]">
             {{ link.text }}
           </NuxtLink>
@@ -75,8 +75,8 @@ onMounted(() => {
                 class="block text-xs py-1.5 px-3 rounded-xl transition-all duration-200"
                 :class="[
                   activeId === child.id
-                    ? 'text-violet-600 dark:text-violet-400 bg-violet-500/10 font-bold translate-x-1'
-                    : 'text-zinc-500 dark:text-zinc-500 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-violet-500/5',
+                    ? 'text-primary bg-primary-10 font-bold translate-x-1'
+                    : 'text-zinc-500 dark:text-zinc-500 hover:text-primary hover:bg-primary-10',
                 ]">
                 {{ child.text }}
               </NuxtLink>
@@ -89,8 +89,8 @@ onMounted(() => {
                   class="block text-xs py-1.5 px-3 rounded-xl transition-all duration-200"
                   :class="[
                     activeId === grandchild.id
-                      ? 'text-violet-600 dark:text-violet-400 bg-violet-500/10 font-bold translate-x-1'
-                      : 'text-zinc-400 dark:text-zinc-600 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-violet-500/5',
+                      ? 'text-primary bg-primary-10 font-bold translate-x-1'
+                      : 'text-zinc-400 dark:text-zinc-600 hover:text-primary hover:bg-primary-10',
                   ]">
                   {{ grandchild.text }}
                 </NuxtLink>
@@ -124,8 +124,8 @@ onMounted(() => {
               class="block text-sm py-1.5 px-3 rounded-xl transition-all duration-200"
               :class="[
                 activeId === link.id
-                  ? 'text-violet-600 dark:text-violet-400 bg-violet-500/10 font-bold translate-x-1'
-                  : 'text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-violet-500/5',
+                  ? 'text-primary bg-primary-10 font-bold translate-x-1'
+                  : 'text-zinc-600 dark:text-zinc-400 hover:text-primary hover:bg-primary-10',
               ]"
               @click="emit('close')">
               {{ link.text }}
@@ -138,8 +138,8 @@ onMounted(() => {
                   class="block text-xs py-1.5 px-3 rounded-xl transition-all duration-200"
                   :class="[
                     activeId === child.id
-                      ? 'text-violet-600 dark:text-violet-400 bg-violet-500/10 font-bold translate-x-1'
-                      : 'text-zinc-500 dark:text-zinc-500 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-violet-500/5',
+                      ? 'text-primary bg-primary-10 font-bold translate-x-1'
+                      : 'text-zinc-500 dark:text-zinc-500 hover:text-primary hover:bg-primary-10',
                   ]"
                   @click="emit('close')">
                   {{ child.text }}
@@ -153,8 +153,8 @@ onMounted(() => {
                     class="block text-xs py-1.5 px-3 rounded-xl transition-all duration-200"
                     :class="[
                       activeId === grandchild.id
-                        ? 'text-violet-600 dark:text-violet-400 bg-violet-500/10 font-bold translate-x-1'
-                        : 'text-zinc-400 dark:text-zinc-600 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-violet-500/5',
+                        ? 'text-primary bg-primary-10 font-bold translate-x-1'
+                        : 'text-zinc-400 dark:text-zinc-600 hover:text-primary hover:bg-primary-10',
                     ]"
                     @click="emit('close')">
                     {{ grandchild.text }}

@@ -23,7 +23,7 @@ withDefaults(defineProps<Props>(), {
     <div class="grid items-center text-center mb-8 w-full px-4">
       <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
         <div
-          class="flex items-center text-sm font-bold text-violet-600 dark:text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20 shrink-0">
+          class="flex items-center text-sm font-bold text-primary bg-primary-10 px-3 py-1 rounded-full border border-primary shrink-0">
           <Icon name="mdi:calendar" class="mr-2 w-4 h-4" />
           {{ date }}
         </div>
@@ -31,7 +31,7 @@ withDefaults(defineProps<Props>(), {
           <template v-for="tag in tags" :key="tag">
             <NuxtLink :to="`/tags/${tag.toLocaleLowerCase()}`">
               <span
-                class="bg-white/40 dark:bg-slate-800/40 backdrop-blur-md border border-white/20 dark:border-white/5 rounded-full px-3 py-1 text-xs font-bold text-zinc-600 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-all duration-300"
+                class="bg-white/40 dark:bg-slate-800/40 backdrop-blur-md border border-white/20 dark:border-white/5 rounded-full px-3 py-1 text-xs font-bold text-zinc-600 dark:text-zinc-300 hover:bg-primary-10 hover:text-primary transition-all duration-300"
                 >#{{ tag }}</span
               >
             </NuxtLink>
@@ -51,7 +51,7 @@ withDefaults(defineProps<Props>(), {
 
     <div class="relative group w-full mb-12 px-4">
       <div
-        class="absolute inset-0 bg-linear-to-tr from-violet-500/20 to-fuchsia-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+        class="absolute inset-0 bg-primary-10 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
       <NuxtImg
         v-if="image"
         :src="image || ''"

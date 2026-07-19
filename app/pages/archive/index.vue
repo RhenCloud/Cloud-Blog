@@ -69,15 +69,12 @@ const searchResults = computed(() => {
         <div class="flex flex-col items-center">
           <NuxtLink
             to="/"
-            class="flex items-center gap-2 text-sm font-bold text-violet-600 dark:text-violet-400 hover:underline mb-4">
+            class="flex items-center gap-2 text-sm font-bold text-primary hover:underline mb-4">
             <Icon name="heroicons:arrow-left-20-solid" />
             返回首页
           </NuxtLink>
-          <div class="p-3 bg-violet-500/10 rounded-2xl mb-4">
-            <Icon
-              name="mdi:file-document-multiple"
-              size="2.5em"
-              class="text-violet-600 dark:text-violet-400" />
+          <div class="p-3 bg-primary-10 rounded-2xl mb-4">
+            <Icon name="mdi:file-document-multiple" size="2.5em" class="text-primary" />
           </div>
           <h1
             class="text-4xl md:text-5xl font-bold text-zinc-800 dark:text-zinc-100 mb-4 tracking-tight">
@@ -96,7 +93,7 @@ const searchResults = computed(() => {
         v-model="searchTest"
         placeholder="Search"
         type="text"
-        class="block w-full bg-[#F1F2F4] dark:bg-slate-900 dark:placeholder-zinc-500 text-zinc-300 rounded-md border-gray-300 dark:border-gray-800 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+        class="block w-full glass-panel text-zinc-700 dark:text-zinc-200 placeholder-zinc-400 rounded-2xl border-white/40 dark:border-white/10 shadow-sm focus:border-primary focus:ring focus:ring-[rgba(var(--site-primary-rgb),0.22)] focus:ring-opacity-100" />
     </div>
 
     <!-- 文章列表 -->

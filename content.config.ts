@@ -1,24 +1,17 @@
 import { defineCollection, defineContentConfig } from "@nuxt/content";
-import { asSeoCollection } from "@nuxtjs/seo/content";
-import { asRobotsCollection } from "@nuxtjs/robots/content";
-import { asSitemapCollection } from "@nuxtjs/sitemap/content";
+import {
+  defineRobotsSchema,
+  defineSitemapSchema,
+  defineOgImageSchema,
+  defineSchemaOrgSchema,
+} from "@nuxtjs/seo/content";
 import { z } from "zod";
 
 export default defineContentConfig({
   collections: {
     content: defineCollection({
-      ...asRobotsCollection({
-        type: "page",
-        source: "posts/**/*.md",
-      }),
-      ...asSitemapCollection({
-        type: "page",
-        source: "posts/**/*.md",
-      }),
-      ...asSeoCollection({
-        type: "page",
-        source: "posts/**/*.md",
-      }),
+      type: "page",
+      source: "posts/**/*.md",
       schema: z.object({
         published: z.boolean(),
         title: z.string(),
@@ -28,8 +21,11 @@ export default defineContentConfig({
         tags: z.array(z.string()),
         image: z.string(),
         alt: z.string(),
+        robots: defineRobotsSchema(),
+        sitemap: defineSitemapSchema(),
+        ogImage: defineOgImageSchema(),
+        schemaOrg: defineSchemaOrgSchema(),
       }),
-      // indexes: [{ columns: ["date"] }],
     }),
     about: defineCollection({
       type: "page",

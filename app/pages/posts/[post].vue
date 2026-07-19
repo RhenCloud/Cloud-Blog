@@ -45,31 +45,33 @@ useHead({
 </script>
 
 <template>
-  <div
-    class="px-4 md:px-6 container max-w-6xl mx-auto flex flex-col lg:flex-row gap-12 items-start">
-    <div class="w-full" :class="{ 'lg:w-2/3': articles?.body?.toc?.links?.length }">
-      <BlogHeader
-        :title="data.title"
-        :image="data.image"
-        :alt="data.alt"
-        :date="formatDate(data.date)"
-        :description="data.description"
-        :tags="data.tags" />
-      <div
-        class="prose prose-zinc dark:prose-invert max-w-none w-full prose-headings:scroll-mt-28 prose-headings:tracking-tight prose-headings:font-bold prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl prose-p:leading-relaxed prose-a:no-underline hover:prose-a:underline prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-xl prose-blockquote:italic prose-img:rounded-3xl prose-img:shadow-xl prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none prose-pre:bg-slate-900 dark:prose-pre:bg-slate-950 prose-pre:rounded-2xl prose-pre:shadow-2xl prose-pre:border prose-pre:border-white/5">
-        <ContentRenderer v-if="articles" :value="articles">
-          <template #empty>
-            <p>No content found.</p>
-          </template>
-        </ContentRenderer>
-        <ClientOnly>
-          <Comment />
-        </ClientOnly>
-      </div>
-    </div>
+  <div class="px-4 md:px-6 container max-w-6xl mx-auto">
+    <BlogHeader
+      :title="data.title"
+      :image="data.image"
+      :alt="data.alt"
+      :date="formatDate(data.date)"
+      :description="data.description"
+      :tags="data.tags" />
 
-    <!-- 侧边目录 -->
-    <BlogToc v-if="articles?.body?.toc?.links?.length" :links="articles.body.toc.links" />
+    <div class="flex flex-col lg:flex-row gap-12 items-start">
+      <div class="w-full" :class="{ 'lg:w-2/3': articles?.body?.toc?.links?.length }">
+        <div
+          class="prose prose-zinc dark:prose-invert max-w-none w-full prose-headings:scroll-mt-28 prose-headings:tracking-tight prose-headings:font-bold prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl prose-p:leading-relaxed prose-a:no-underline hover:prose-a:underline prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-xl prose-blockquote:italic prose-img:rounded-3xl prose-img:shadow-xl prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none prose-pre:bg-slate-900 dark:prose-pre:bg-slate-950 prose-pre:rounded-2xl prose-pre:shadow-2xl prose-pre:border prose-pre:border-white/5">
+          <ContentRenderer v-if="articles" :value="articles">
+            <template #empty>
+              <p>No content found.</p>
+            </template>
+          </ContentRenderer>
+          <ClientOnly>
+            <Comment />
+          </ClientOnly>
+        </div>
+      </div>
+
+      <!-- 侧边目录 -->
+      <BlogToc v-if="articles?.body?.toc?.links?.length" :links="articles.body.toc.links" />
+    </div>
 
     <!-- 移动端目录 -->
     <ClientOnly>
