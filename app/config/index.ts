@@ -51,6 +51,12 @@ const siteConfig: SiteConfig = {
       description: "什么都有的个人 blog?",
       avatar: "https://wyf9.top/favicon.png",
     },
+    {
+      name: "Kuriyona's Space",
+      url: "https://kuriyona.com",
+      description: "一个可爱的女孩子，18 岁中国准大学生，宅，亚二次元，MtF 和兴趣使然的开发者",
+      avatar: "https://r2.kuriyona.com/img/avatar/Avatar_256.png",
+    },
   ],
 
   navbar: {
